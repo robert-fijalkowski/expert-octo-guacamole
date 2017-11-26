@@ -5,6 +5,7 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex';
 
 const { API_URL } = process.env;
 export default {
@@ -12,11 +13,12 @@ export default {
   methods: {
     processMessage(event) {
       if (event.data.jwt) {
-        console.log(event.data.jwt);
         this.isLoading = false;
         this.$router.push('/dashboard');
+        this.login(event.data.jwt);
       }
     },
+    ...mapActions(['login']),
   },
   created() {
     window.addEventListener('message', this.processMessage);

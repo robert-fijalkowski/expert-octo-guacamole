@@ -4,7 +4,7 @@ import Vue from 'vue';
 import Buefy from 'buefy';
 import App from './App';
 import router from './router';
-import store from './store';
+import store from './store/index';
 
 Vue.use(Buefy, {
   defaultIconPack: 'fa',
