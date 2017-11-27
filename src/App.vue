@@ -2,10 +2,18 @@
   <div id="app">
     <Styled/>
     <Navigation/>
+    <UserBar/>
     <div class="viewport">
-      <UserBar/>
       <router-view/>
     </div>
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <p>
+          </p>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -22,7 +30,17 @@ export default {
  
 <style lang="scss">
 @import "./style/vars";
+#app,
+html,
+body {
+  height: 100%;
+}
 .viewport {
+  margin-left: $navBarSize;
+  min-height: calc(100% + -150px);
+  padding: 10px;
+}
+footer {
   margin-left: $navBarSize;
 }
 </style>

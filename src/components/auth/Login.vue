@@ -1,7 +1,6 @@
 <template>
   <div>
     <b-loading :active.sync="isLoading" :canCancel="true"></b-loading>
-
   </div>
 </template>
 <script>

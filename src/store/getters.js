@@ -1,5 +1,5 @@
 export default {
-  isLogged: state => state.isLogged,
+  isLogged: state => state.loggedIn,
   profile: state => state.profile,
   avatar: state => state.profile.avatar_url,
   username: (state, getters) => {

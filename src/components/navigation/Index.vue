@@ -1,7 +1,7 @@
 <template>
   <div class="navigation has-text-centered">
     <img src="../../assets/schibsted.png" />
-    <span :v-if="isLogged">
+    <span v-if="isLogged">
       <MenuButton text="Dashboard" icon="home" route="/dashboard" />
       <MenuButton text="List of games" icon="list" route="/games" />
       <MenuButton text="List of users" icon="users" route="/users" />
@@ -11,7 +11,6 @@
     <span v-if="!isLogged">
       <MenuButton text="Login with github" icon="github" route="/login" />
     </span>
-    {{isLogged}}
     <MenuButton text="About us" icon="info-circle" route="/about" />
   </div>
 </template>
@@ -30,7 +29,7 @@ export default {
 };
 </script>
  
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../../style/vars.scss";
 img {
   border-bottom: 1px solid black;
@@ -43,5 +42,6 @@ img {
   background: linear-gradient(to right, $primary 0%, $navBarEnd 100%);
   height: 100%;
   font-size: 0.9rem;
+  z-index: 1;
 }
 </style>

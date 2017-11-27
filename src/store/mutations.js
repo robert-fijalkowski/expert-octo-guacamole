@@ -10,7 +10,7 @@ export default {
     state.token = null;
     state.loggedIn = false;
     state.access = null;
-    state.profile = null;
+    state.profile = {};
   },
   [types.SET_ACCESS_LEVEL](state, access) {
     state.access = access;

@@ -1,7 +1,12 @@
 <template>
   <div>
-    <div :v-if="isLogged" class="nav">
-      <img :src="avatar" width=50 height=50 /> {{username}}
+    <div v-if="isLogged" class="nav level">
+      <div class='level-left avatar'>
+        <img :src="avatar" />
+      </div>
+      <div class="level-item">
+        {{username}} Logged: {{""+isLogged}}
+      </div>
     </div>
   </div>
 </template>
@@ -18,8 +23,21 @@ export default {
 <style lang="scss" scoped>
 @import "../style/vars";
 .nav {
+  box-sizing: border-box;
   color: white;
   height: $navBarSize;
   background: $navBarEnd;
+  padding: 0px;
+  border-bottom: 1px solid $black;
+  box-shadow: 0px 0px 10px $black;
+  margin-left: $navBarSize;
+  .avatar {
+    display: inline-block;
+    img {
+      width: $navBarSize;
+      border-radius: 15px;
+    }
+    margin-left: 10px;
+  }
 }
 </style>
