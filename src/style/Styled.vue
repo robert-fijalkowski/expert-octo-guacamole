@@ -21,11 +21,12 @@ export default {
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: $primary-invert;
 }
 $colors: (
   "white": ($white, $black),
   "black": ($black, $white),
+  "gray": (#999, #300),
   "light": ($light, $light-invert),
   "dark": ($dark, $dark-invert),
   "primary": ($primary, $primary-invert),

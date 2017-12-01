@@ -28,11 +28,11 @@ $pad: 18px;
   padding-bottom: $pad;
 }
 .icon {
-  transition: color 0.15s ease-in-out;
   &.has-text-iconized > i.fa {
-    color: mix(#000, $primary);
+    transition: color 0.15s ease-in-out;
+    color: mix(#000, $primary-invert);
     &:hover {
-      color: mix(#fff, $primary);
+      color: mix(#aaa, $primary-invert);
     }
   }
 }

@@ -5,6 +5,7 @@ const decodeToken = (token, { commit }) => {
   const { access, meta, id } = JSON.parse(atob(payload));
   commit(types.SET_ACCESS_LEVEL, access);
   commit(types.SET_USER_PROFILE, meta);
+  commit(types.SET_USER_ID, id);
 };
 export default {
   login({ commit }, token) {
@@ -22,5 +23,8 @@ export default {
   logout({ commit }) {
     window.localStorage.removeItem('TOKEN');
     commit(types.CLEAR_JWT_TOKEN);
+  },
+  setMyProfile({ commit }, myProfile) {
+    commit(types.SET_MY_PROFILE, myProfile);
   },
 };

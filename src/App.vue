@@ -6,14 +6,6 @@
     <div class="viewport">
       <router-view/>
     </div>
-    <footer class="footer">
-      <div class="container">
-        <div class="content has-text-centered">
-          <p>
-          </p>
-        </div>
-      </div>
-    </footer>
   </div>
 </template>
 
@@ -35,12 +27,13 @@ html,
 body {
   height: 100%;
 }
+html {
+  background-color: black !important;
+  background: linear-gradient(to bottom, #222 0%, #090909 100%);
+}
 .viewport {
   margin-left: $navBarSize;
   min-height: calc(100% + -150px);
   padding: 10px;
-}
-footer {
-  margin-left: $navBarSize;
 }
 </style>

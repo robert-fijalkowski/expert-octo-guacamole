@@ -1,6 +1,8 @@
 <template>
   <div class="navigation has-text-centered">
-    <img src="../../assets/schibsted.png" />
+    <div class="logo">
+      <img src="../../assets/premiersted.svg" />
+    </div>
     <span v-if="isLogged">
       <MenuButton text="Dashboard" icon="home" route="/dashboard" />
       <MenuButton text="List of games" icon="list" route="/games" />
@@ -31,15 +33,13 @@ export default {
  
 <style lang="scss">
 @import "../../style/vars.scss";
-img {
-  border-bottom: 1px solid black;
+.logo {
+  padding: 4px;
 }
 .navigation {
   font-family: "Montserrat";
   position: fixed;
   width: $navBarSize;
-  border-right: 1px solid black;
-  background: linear-gradient(to right, $primary 0%, $navBarEnd 100%);
   height: 100%;
   font-size: 0.9rem;
   z-index: 1;

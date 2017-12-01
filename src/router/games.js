@@ -5,4 +5,8 @@ export default [
     path: '/games',
     component: List,
   },
+  {
+    path: '/games/:id',
+    component: List,
+  },
 ];

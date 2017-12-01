@@ -5,7 +5,10 @@
         <img :src="avatar" />
       </div>
       <div class="level-item">
-        {{username}} Logged: {{""+isLogged}}
+        {{username}} Logged
+      </div>
+      <div class="level-item">
+        {{id}}
       </div>
     </div>
   </div>
@@ -16,7 +19,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'userbar',
   computed: {
-    ...mapGetters(['isLogged', 'avatar', 'username']),
+    ...mapGetters(['isLogged', 'avatar', 'username', 'id']),
   },
 };
 </script>
@@ -26,10 +29,7 @@ export default {
   box-sizing: border-box;
   color: white;
   height: $navBarSize;
-  background: $navBarEnd;
   padding: 0px;
-  border-bottom: 1px solid $black;
-  box-shadow: 0px 0px 10px $black;
   margin-left: $navBarSize;
   .avatar {
     display: inline-block;

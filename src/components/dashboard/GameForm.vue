@@ -3,7 +3,6 @@
     <p class="title">Form</p>
     <h2>{{doneMatches.length}}</h2>
     <div v-for="(match,index) in doneMatches" :key="match.id">
-      {{match}}
     </div>
   </div>
 </template>
@@ -17,6 +16,7 @@ export default {
       type: Array,
       default: () => [],
     },
+    userId: String,
     size: {
       type: Number,
       default: 5,
