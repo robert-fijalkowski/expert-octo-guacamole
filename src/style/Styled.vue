@@ -1,9 +1,14 @@
 <template>
-  <div></div>
+  <div>
+    <ClubSprite/>
+  </div>
 </template>
 <script>
+import ClubSprite from './ClubSprite';
+
 export default {
   name: 'styled',
+  components: { ClubSprite },
 };
 /*
 

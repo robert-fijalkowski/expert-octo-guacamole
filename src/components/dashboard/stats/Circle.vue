@@ -33,6 +33,7 @@ export default {
   font-weight: bold;
 }
 .circle {
+  @include mobile();
   width: 100px;
   position: relative;
   height: 100px;

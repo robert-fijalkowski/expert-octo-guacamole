@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div v-if="isLogged" class="nav level">
-      <div class='level-left avatar'>
+    <div v-if="isLogged" class="nav columns is-centered is-mobile">
+      <div class='column is-1 avatar'>
         <img :src="avatar" />
       </div>
-      <div class="level-item">
+      <div class="column has-text-centered">
         {{username}} Logged
       </div>
-      <div class="level-item">
+      <div class="column">
         {{id}}
       </div>
     </div>
@@ -31,6 +31,9 @@ export default {
   height: $navBarSize;
   padding: 0px;
   margin-left: $navBarSize;
+  div {
+    outline: 0px solid white;
+  }
   .avatar {
     display: inline-block;
     img {

@@ -26,14 +26,16 @@ export default {
 html,
 body {
   height: 100%;
+  background: linear-gradient(to bottom, #222 0%, #090909 100%);
+  background-attachment: fixed;
+  padding: 5px 5px 0px 5px;
 }
 html {
   background-color: black !important;
-  background: linear-gradient(to bottom, #222 0%, #090909 100%);
 }
 .viewport {
   margin-left: $navBarSize;
   min-height: calc(100% + -150px);
-  padding: 10px;
+  margin-top: 5px;
 }
 </style>

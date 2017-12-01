@@ -3,7 +3,7 @@
     <p class="title">{{title}}</p>
     <h2>{{relatedMatches.length}}</h2>
     <div v-for="(match,index) in relatedMatches" :key="match.id">
-      {{match.home}} vs {{match.visitor}} {{match}}
+      {{match.home}} vs {{match.visitor}}
     </div>
   </div>
 </template>

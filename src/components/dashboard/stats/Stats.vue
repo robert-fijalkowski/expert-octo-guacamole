@@ -1,10 +1,13 @@
 <template>
-  <div class="columns is-centered is-multiline is-mobile">
-    <StatsCircle text="W/D/L" :value="`${stats.wins}/${stats.draws}/${stats.loses}`" description="Wins / Draws / Loses" />
-    <StatsCircle text="GS/GC" :value="`${stats.scored}/${stats.lost}`" description="Goals scored / Goals conceded" />
-    <StatsCircle text="~GM" :value="average.scored" description="Average goals scored per match" />
-    <StatsCircle text="PL" :value="stats.played" description="Matches played" />
-    <StatsCircle text="WR" :value="`${(100*average.wins).toFixed(1)}%`" description="Win Rate" />
+  <div>
+    <p class="title">Stats</p>
+    <div class="columns is-centered is-multiline is-mobile">
+      <StatsCircle text="W/D/L" :value="`${stats.wins}/${stats.draws}/${stats.loses}`" description="Wins / Draws / Loses" />
+      <StatsCircle text="GS/GC" :value="`${stats.scored}/${stats.lost}`" description="Goals scored / Goals conceded" />
+      <StatsCircle text="~GM" :value="average.scored" description="Average goals scored per match" />
+      <StatsCircle text="PL" :value="stats.played" description="Matches played" />
+      <StatsCircle text="WR" :value="`${(100*average.wins).toFixed(1)}%`" description="Win Rate" />
+    </div>
   </div>
 </template>
 
