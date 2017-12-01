@@ -39,18 +39,8 @@ export default {
     return {
     };
   },
-  methods: {
-    ...mapActions(['setMyProfile']),
-  },
   computed: {
     ...mapGetters(['isLogged', 'avatar', 'username', 'id', 'myProfile']),
-  },
-  watch: {
-    isLogged(isLoggedNow) {
-      if (isLoggedNow) {
-        this.$api('GET', '/users/myprofile').then(this.setMyProfile);
-      }
-    },
   },
 };
 </script>
