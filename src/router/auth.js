@@ -9,5 +9,6 @@ export default [
   {
     path: '/logout',
     component: Logout,
+    meta: { requiresAuth: true },
   },
 ];

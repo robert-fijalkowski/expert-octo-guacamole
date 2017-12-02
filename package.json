@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "buefy": "^0.6.1",
+    "lodash.debounce": "^4.0.8",
     "ramda": "^0.25.0",
     "superagent": "^3.8.1",
     "vue": "^2.5.2",
@@ -71,5 +72,9 @@
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"]
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }

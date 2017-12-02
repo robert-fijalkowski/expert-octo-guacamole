@@ -5,8 +5,9 @@
     </div>
     <span v-if="isLogged">
       <MenuButton text="Dashboard" icon="home" route="/dashboard" />
-      <MenuButton text="List of games" icon="list" route="/games" />
-      <MenuButton text="List of users" icon="users" route="/users" />
+      <MenuButton text="List of games" v-if="isUser" icon="list" route="/games" />
+      <MenuButton text="List of users" v-if="isUser" icon="users" route="/users" />
+      <MenuButton text="Clubs search" icon="futbol-o" route="/clubs" />
       <MenuButton text="Settings & My Profile" icon="cog" route="/settings" />
       <MenuButton text="Logout" icon="sign-out" route="/logout" />
     </span>
@@ -26,7 +27,7 @@ export default {
   name: 'nabvar',
   components: { MenuButton },
   computed: {
-    ...mapGetters(['isLogged']),
+    ...mapGetters(['isLogged', 'isAdmin', 'isUser']),
   },
 };
 </script>

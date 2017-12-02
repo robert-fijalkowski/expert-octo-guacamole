@@ -5,10 +5,7 @@
         <img :src="avatar" />
       </div>
       <div class="column has-text-centered">
-        {{username}} Logged
-      </div>
-      <div class="column">
-        {{id}}
+        {{username}}
       </div>
     </div>
   </div>
@@ -37,8 +34,8 @@ export default {
   .avatar {
     display: inline-block;
     img {
-      width: $navBarSize;
-      border-radius: 15px;
+      width: $navBarSize + -15px;
+      border-radius: 50%;
     }
     margin-left: 10px;
   }

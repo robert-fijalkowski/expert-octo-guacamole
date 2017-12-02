@@ -51,10 +51,4 @@ export default {
   width: 100px;
   height: 100px;
 }
-.title {
-  text-align: center;
-  text-transform: uppercase;
-  font-family: "Montserrat";
-  font-size: 140%;
-}
 </style>

@@ -3,6 +3,9 @@ export default {
   profile: state => state.profile,
   avatar: state => state.profile.avatar_url,
   id: state => state.id,
+  access: state => state.access,
+  isAdmin: state => state.access === 'ADMIN',
+  isUser: (state, getters) => getters.isAdmin || state.access === 'USER',
   myProfile: state => state.myProfile,
   username: (state, getters) => {
     const { profile } = getters;

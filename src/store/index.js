@@ -19,8 +19,6 @@ const store = new Vuex.Store({
   getters,
 });
 
-setTimeout(() => {
-  store.dispatch('loadLocalStorage');
-}, 750);
+setImmediate(() => store.dispatch('loadLocalStorage'));
 
 export default store;

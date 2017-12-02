@@ -4,8 +4,8 @@ import Vue from 'vue';
 import AsyncComputed from 'vue-async-computed';
 import Buefy from 'buefy';
 import App from './App';
-import router from './router';
 import store from './store/index';
+import router from './router';
 import Api from './plugins/api';
 
 /* Initialize the plugin */
