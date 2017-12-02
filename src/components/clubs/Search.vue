@@ -1,9 +1,12 @@
 <template>
   <div class="notification is-primary">
     <div class="notification is-primary">
-      <b-field>
-        <b-input v-model="phrase" placeholder="Search..." type="search" icon-pack="fa" icon="search">
+      <b-field grouped>
+        <b-input expanded v-model="phrase" placeholder="Search..." type="search" icon-pack="fa" icon="search">
         </b-input>
+        <b-switch v-model="deep" type="is-gray">
+          Deep search
+        </b-switch>
       </b-field>
     </div>
     <div class="columns is-multiline" v-if="phrase && data.length !== 0">
@@ -42,7 +45,7 @@
       There is no results for your
       <span class="is-bold ">{{phrase}}</span>
     </div>
-    <div class="has-text-centered " v-else-if="!done ">
+    <div class="has-text-centered " v-else-if="phrase && !done">
       Your search is now handling.
     </div>
     <div class="level "></div>
@@ -61,19 +64,24 @@ export default {
     return {
       phrase: '',
       data: [],
+      deep: false,
       done: true,
     };
   },
   components: { ClubEmblem, Stars },
   methods: {
     search: debounce(function debouncedSearch() {
-      this.$api('GET', `/clubs?search=${this.phrase}&atLeast=fair`)
+      if (!this.phrase) {
+        return false;
+      }
+      return this.$api('GET', `/clubs?search=${this.phrase}${this.deep ? '&atLeast=fair' : ''}`)
         .then((data) => { this.data = data; })
         .then(() => { this.done = true; })
         .catch(() => { this.done = true; });
     }, 500),
     qualityToColor: cond([
       [equals('excellent'), always('is-success')],
+      [equals('good'), always('is-success')],
       [equals('average'), always('is-average')],
       [equals('fair'), always('is-warning')],
       [T, always('is-black')],
@@ -81,6 +89,11 @@ export default {
   },
   watch: {
     phrase() {
+      this.done = false;
+      this.data = [];
+      this.search();
+    },
+    deep() {
       this.done = false;
       this.data = [];
       this.search();
