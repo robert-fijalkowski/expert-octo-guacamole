@@ -59,7 +59,7 @@ export default {
   name: 'clubs-search',
   data() {
     return {
-      phrase: 'czelsi',
+      phrase: '',
       data: [],
       done: true,
     };
