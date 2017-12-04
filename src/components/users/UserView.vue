@@ -1,11 +1,9 @@
 <template>
   <div class="notification is-primary">
-    <router-link to="/users">
-      <button class="button is-info">
-        <b-icon icon="arrow-left"></b-icon>
-        <span>Back to list</span>
-      </button>
-    </router-link>
+    <button class="button is-info" @click="back()">
+      <b-icon icon="arrow-left"></b-icon>
+      <span>Back</span>
+    </button>
   </div>
 </template>
 
@@ -19,13 +17,17 @@ export default {
   data() {
     return {
       profile: {},
+      from: null,
     };
   },
   computed: {
     ...mapGetters(['isAdmin']),
+
   },
   methods: {
-
+    back() {
+      this.$router.go(-1);
+    },
   },
   mounted() {
     this.$api('GET', `/users/${this.id}`).then((profile) => { this.profile = profile; });

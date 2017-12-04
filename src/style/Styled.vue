@@ -37,6 +37,7 @@ $colors: (
   "light": ($light, $light-invert),
   "dark": ($dark, $dark-invert),
   "primary": ($primary, $primary-invert),
+  "primary-2": (mix($primary, #fff, 90%), mix($primary-invert, #000, 90%)),
   "info": ($info, $info-invert),
   "success": ($success, $success-invert),
   "average": (#aadd33, black),

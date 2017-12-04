@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isLogged">
+  <div v-if="isLogged" class="root">
     <div class="tile is-ancestor">
       <div class="tile is-parent is-12">
         <div class="tile is-child box notification is-primary">
@@ -47,6 +47,9 @@ export default {
 </script>
 
 <style lang="scss">
+.root {
+  padding: 1rem;
+}
 .club-logo {
   width: 100px;
   height: 100px;

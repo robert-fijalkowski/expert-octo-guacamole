@@ -1,5 +1,5 @@
 <template>
-  <div class="notification is-primary">
+  <div class="root">
     <p class="title">List of users</p>
     <div class="columns is-multiline">
       <div class="column is-6" v-for="{id, access, meta} in users" :key="id">
@@ -106,6 +106,9 @@ export default {
 .center-avatar {
   justify-content: center;
   display: flex;
+}
+.root {
+  padding: 1rem;
 }
 .avatar {
   display: flex;
