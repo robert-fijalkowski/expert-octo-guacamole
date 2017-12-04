@@ -74,7 +74,7 @@ export default {
       if (!this.phrase) {
         return false;
       }
-      return this.$api('GET', `/clubs?search=${this.phrase}${this.deep ? '&atLeast=fair' : ''}&limit=21p`)
+      return this.$api('GET', `/clubs?search=${this.phrase}${this.deep ? '&atLeast=fair' : ''}&limit=21`)
         .then((data) => { this.data = data; })
         .then(() => { this.done = true; })
         .catch(() => { this.done = true; });
