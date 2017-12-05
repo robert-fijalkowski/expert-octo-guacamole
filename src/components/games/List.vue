@@ -8,32 +8,82 @@
         <p class="subtitle has-text-centered is-size-6">{{game.location}}</p>
         <div class="floating-tag">
           <b-tag type="is-primary">{{game.status}}</b-tag>
+          <router-link :to="`/games/join?game=${game.id}`">
+            <b-tag type="is-warning" v-if="game.status === 'OPEN' && !isMember(game)">JOIN</b-tag>
+          </router-link>
+          <span @click="leave(game)" class="is-clickable">
+            <b-tag type="is-danger" v-if="isMember(game) ">Member of</b-tag>
+          </span>
           <b-tag type="is-info">{{game.players.length}} players</b-tag>
         </div>
-        <FocusedTable :players="game.players" :table="game.table" />
+        <FocusedTable :players="game.players " :table="game.table " />
       </div>
     </div>
+    <b-modal :active.sync="isJoinActive " :canCancel="false " @close="restore">
+      <div class="card ">
+        <Join :gameId="gameId" @joined="whenJoined" />
+      </div>
+    </b-modal>
   </div>
 </template> 
 
 <script>
 import moment from 'moment';
+import { mapGetters } from 'vuex';
+import * as R from 'ramda';
+
 import FocusedTable from './FocusedTable';
+import Join from './Join';
 
 export default {
   name: 'games-list',
   data() {
-    return { games: [] };
+    return { games: [], isJoinActive: false };
   },
-  components: { FocusedTable },
+  components: { FocusedTable, Join },
   computed: {
-
+    ...mapGetters(['id']),
+    gameId() {
+      return this.$route.query.game;
+    },
   },
   methods: {
+    setModalVisible(visible) { this.isJoinActive = visible; },
     humanTime: date => moment(date).fromNow(),
+    isMember(game) {
+      return R.findIndex(R.propEq('id', this.id), game.players) !== -1;
+    },
+    replace(game) {
+      const updatedGameIndex = R.findIndex(R.propEq('id', game.id), R.values(this.games));
+      if (updatedGameIndex !== -1) {
+        this.games = R.assoc(updatedGameIndex, game, this.games);
+      } else {
+        this.load();
+      }
+    },
+    leave(game) {
+      this.$api('DELETE', `/games/${game.id}/competitors`, { uid: this.id }).then(this.replace);
+    },
+    whenJoined(game) {
+      this.restore();
+      this.replace(game);
+    },
+    restore() {
+      this.$router.push('/games');
+    },
+    load() {
+      this.$api('GET', '/games').then((games) => { this.games = games; });
+    },
   },
   created() {
-    this.$api('GET', '/games').then((games) => { this.games = games; });
+    this.load();
+  },
+  beforeRouteEnter(to, from, next) {
+    const callback = R.cond([
+      [R.has('game'), R.always((vm) => { vm.setModalVisible(true); })],
+      [R.T, R.always((vm) => { vm.setModalVisible(false); })],
+    ])(to.query);
+    next(callback);
   },
 };
 </script>
@@ -50,5 +100,8 @@ export default {
     right: 1.5rem;
     bottom: 1rem;
   }
+}
+.card {
+  background: transparent;
 }
 </style>

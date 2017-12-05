@@ -25,3 +25,11 @@ export default {
   name: 'stars',
 };
 </script>
+<style scoped lang="scss">
+.stars {
+  > * {
+    margin-left: 0.125rem;
+    margin-right: 0.125rem;
+  }
+}
+</style>

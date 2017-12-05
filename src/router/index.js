@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Dashboard from '@/components/dashboard/Dashboard';
 import NotLogged from '@/components/auth/NotLogged';
-import ClubsSearch from '@/components/clubs/Search';
+import ClubsView from '@/components/clubs/View';
 
 import store from '../store';
 import games from './games';
@@ -18,7 +18,7 @@ const router = new Router({
     },
     { path: '/notLogged', component: NotLogged },
     { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true } },
-    { path: '/clubs', component: ClubsSearch, meta: { requiresAuth: true } },
+    { path: '/clubs', component: ClubsView, meta: { requiresAuth: true } },
     ...games,
     ...auth,
     ...users,
@@ -26,6 +26,7 @@ const router = new Router({
 });
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
+    // TODO implement isAdmin/isUser checking from isPositive meta field value
     if (!store.getters.isLogged) {
       next({
         path: '/notLogged',

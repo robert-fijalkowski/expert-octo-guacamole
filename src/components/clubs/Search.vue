@@ -1,75 +1,63 @@
 <template>
-  <div class="notification is-primary">
-    <div class="notification is-primary">
-      <b-field grouped>
-        <b-input expanded v-model="phrase" placeholder="Search..." type="search" icon-pack="fa" icon="search">
-        </b-input>
-        <b-switch v-model="deep" type="is-gray">
-          Deep search
-        </b-switch>
-      </b-field>
+  <div>
+    <b-field grouped>
+      <b-input expanded v-model="phrase" placeholder="Search..." type="search" icon-pack="fa" icon="search">
+      </b-input>
+      <b-switch v-if="hasDeepSearch" v-model="deep" type="is-gray">
+        Deep search
+      </b-switch>
+    </b-field>
+    <div v-if="phrase && data.length !== 0">
+      <p class="columns is-multiline" v-if="simple">
+        <Simple :select="select" :selected.sync="selectedGame" class="column is-12" :club="club" v-for="club in data" :key="club.id" />
+      </p>
+      <p class="columns is-multiline" v-else>
+        <Complex :select="select" :selected.sync="selectedGame" class="column is-4" :club="club" v-for="club in data" :key="club.id" />
+      </p>
     </div>
-    <div class="columns is-multiline" v-if="phrase && data.length !== 0">
-      <div class="column is-4" v-for="club in data" :key="club.id">
-        <div class="tile is-ancestor">
-          <div class="tile is-parent is-vertical">
-            <article class="notification">
-              <div class="columns">
-                <ClubEmblem :club="club.id" size="120" class="column is-2 is-hidden-touch" />
-                <div class="column">
-                  <div class="title has-text-centered">{{club.name}}</div>
-                  <div class="subtitle is-size-6 has-text-centered">{{club.division}}, {{club.country}}</div>
-                  <Stars :stars="club.stars" class="has-text-centered" />
-                </div>
-              </div>
-              <div class="has-text-centered club-tags">
-                <div class="is-inline-block">
-                  <b-taglist attached>
-                    <b-tag type="is-dark">match</b-tag>
-                    <b-tag :type="qualityToColor(club.quality)">{{club.quality}}</b-tag>
-                  </b-taglist>
-                </div>
-                <div class="is-inline-block">
-                  <b-taglist attached>
-                    <b-tag type="is-dark">score</b-tag>
-                    <b-tag type="is-info">{{club.score}}</b-tag>
-                  </b-taglist>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class=" has-text-centered " v-else-if="done && phrase && data.length===0 ">
+    <div class=" has-text-centered "  v-else-if="done && phrase && data.length===0 ">
       There is no results for your
       <span class="is-bold ">{{phrase}}</span>
     </div>
     <div class="has-text-centered " v-else-if="phrase && !done">
       Your search is now handling.
     </div>
-    <div class="level "></div>
   </div>
 </template>
 
 <script>
 import debounce from 'lodash.debounce';
-import { cond, equals, always, T } from 'ramda';
-import ClubEmblem from './ClubEmblem';
-import Stars from './Stars';
+
+import Simple from './Simple';
+import Complex from './Complex';
 
 export default {
   name: 'clubs-search',
+  props: {
+    'has-deep-search': { type: Boolean, default: true },
+    simple: { type: Boolean, default: false },
+    selected: { type: Function, default: () => {} },
+  },
   data() {
     return {
       phrase: '',
       data: [],
       deep: false,
       done: true,
+      selectedGame: null,
     };
   },
-  components: { ClubEmblem, Stars },
+  components: { Simple, Complex },
   methods: {
+    select(game) {
+      if (this.selectedGame === game.id) {
+        this.selectedGame = null;
+        this.selected(null);
+      } else {
+        this.selectedGame = game.id;
+        this.selected(game);
+      }
+    },
     search: debounce(function debouncedSearch() {
       if (!this.phrase) {
         return false;
@@ -79,24 +67,18 @@ export default {
         .then(() => { this.done = true; })
         .catch(() => { this.done = true; });
     }, 500),
-    qualityToColor: cond([
-      [equals('excellent'), always('is-success')],
-      [equals('good'), always('is-success')],
-      [equals('average'), always('is-average')],
-      [equals('fair'), always('is-warning')],
-      [T, always('is-black')],
-    ]),
-  },
-  watch: {
-    phrase() {
+    doSearch() {
       this.done = false;
       this.data = [];
       this.search();
     },
+  },
+  watch: {
+    phrase() {
+      this.doSearch();
+    },
     deep() {
-      this.done = false;
-      this.data = [];
-      this.search();
+      this.doSearch();
     },
   },
   mounted() {

@@ -1,6 +1,9 @@
 <template>
   <div>
     You are not logged in.
+    <router-link :to="`/login?where=${redirect}`">
+      <button>now with github </button>
+    </router-link>
   </div>
 </template> 
 <script>

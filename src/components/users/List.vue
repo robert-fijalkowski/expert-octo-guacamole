@@ -1,6 +1,5 @@
 <template>
   <div class="root">
-    <p class="title">List of users</p>
     <div class="columns is-multiline">
       <div class="column is-6" v-for="{id, access, meta} in users" :key="id">
         <div class="tile is-child notification is-black">

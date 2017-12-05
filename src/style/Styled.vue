@@ -69,4 +69,7 @@ $link-focus-border: $primary;
 .notification {
   padding: 1rem 1rem 1rem 1rem;
 }
+.is-clickable {
+  cursor: pointer;
+}
 </style>

@@ -13,7 +13,8 @@ export default {
     processMessage(event) {
       if (event.data.jwt) {
         this.isLoading = false;
-        this.$router.push('/dashboard');
+        const { where = '/dashboard' } = this.$route.query;
+        this.$router.push(where);
         this.login(event.data.jwt);
       }
     },
