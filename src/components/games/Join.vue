@@ -23,13 +23,17 @@ import Search from '@/components/clubs/Search';
 export default {
   components: { Search },
   name: 'modal-join',
-  props: ['gameId'],
+  props: ['gameId', 'fullGame'],
   data() {
     return { game: {}, club: null };
   },
   created() {
-    this.$api('GET', `/games/${this.gameId}`)
-      .then((game) => { this.game = game; });
+    if (this.fullGame) {
+      this.game = this.fullGame;
+    } else {
+      this.$api('GET', `/games/${this.gameId}`)
+        .then((game) => { this.game = game; });
+    }
   },
   computed: { ...mapGetters({ uid: 'id' }) },
   methods: {

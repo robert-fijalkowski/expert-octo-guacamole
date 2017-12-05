@@ -6,6 +6,7 @@
           <p class="title">{{game.name}}</p>
         </router-link>
         <p class="subtitle has-text-centered is-size-6">{{game.location}}</p>
+        <FocusedTable class="is-hidden-mobile" :game="game" />
         <div class="floating-tag">
           <b-tag type="is-primary">{{game.status}}</b-tag>
           <router-link :to="`/games/join?game=${game.id}`">
@@ -16,7 +17,6 @@
           </span>
           <b-tag type="is-info" class="is-hidden-mobile">{{game.players.length}} players</b-tag>
         </div>
-        <FocusedTable class="is-hidden-mobile" :players="game.players " :table="game.table " />
       </div>
     </div>
     <b-modal :active.sync="isJoinActive " :canCancel="false " @close="restore">
@@ -96,9 +96,9 @@ export default {
   position: relative;
   .floating-tag {
     position: absolute;
-    left: 1.5rem;
-    right: 1.5rem;
-    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    bottom: 0.75rem;
   }
 }
 .card {

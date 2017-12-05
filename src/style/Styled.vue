@@ -26,7 +26,6 @@ export default {
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: $primary-invert;
 }
 $gold: #febb33;
 $colors: (
@@ -37,7 +36,7 @@ $colors: (
   "light": ($light, $light-invert),
   "dark": ($dark, $dark-invert),
   "primary": ($primary, $primary-invert),
-  "primary-2": (mix($primary, #fff, 90%), mix($primary-invert, #000, 90%)),
+  "primary-2":($primary-2, $primary-2-invert),
   "info": ($info, $info-invert),
   "success": ($success, $success-invert),
   "average": (#aadd33, black),
@@ -45,17 +44,19 @@ $colors: (
   "danger": ($danger, $danger-invert),
   "twitter": ($twitter, $twitter-invert)
 );
-html {
-  background-color: $background;
-}
 a {
   text-decoration: none !important;
 }
 // Links
-$link: $primary;
+$text: $primary-2;
+$text-strong: darken($primary-2-invert, 15%);
+$link: $primary-2-invert;
 $link-invert: $primary-invert;
-$link-focus-border: $primary;
+$link-focus-border: $primary-2;
 
+html {
+  background-color: $background;
+}
 // Import Bulma and Buefy styles
 @import "~bulma";
 @import "~buefy/src/scss/buefy";

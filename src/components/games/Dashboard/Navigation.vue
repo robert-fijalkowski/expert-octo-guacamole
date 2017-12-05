@@ -1,0 +1,67 @@
+<template>
+  <div v-if="game" class="notification">
+    <p class="title">{{game.name}}</p>
+    <p class="subtitle has-text-centered is-size-6">{{game.location}}</p>
+    <div class="level">
+      <div class="level-left">
+        <a class="button is-dark" @click="$router.push('/games')">Back</a>
+        <a class="button is-success" @click="$emit('action','start')" v-if="isAdmin && isOpen && game.competitorsSize >= 2">Start</a>
+        <a class="button is-warning" @click="$emit('action','join')" v-if="!isMember && isOpen">Join</a>
+        <a class="button is-danger" @click="$emit('action','left')" v-if="isMember && isOpen">Left</a>
+        <a class="button is-primary" v-if="isAdmin && isOngoing">Complete</a>
+      </div>
+      <div class="level-right">
+        <b-tag type="is-danger" v-if="isMember">Member Of</b-tag>
+        <b-tag type="is-info" class="is-hidden-mobile">{{game.status}}</b-tag>
+        <b-tag type="is-primary">{{game.competitorsSize}} players</b-tag>
+        <b-taglist attached v-if="progress.total > 0">
+          <b-tag type="is-dark">Progress</b-tag>
+          <b-tag type="is-info">{{progress.played}}/{{progress.total}} ({{progress.percent}}%)</b-tag>
+        </b-taglist>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import * as R from 'ramda';
+import { mapGetters } from 'vuex';
+
+export default {
+  props: ['game'],
+  name: 'game-dashboard-dasboard',
+  computed: {
+    ...mapGetters(['id', 'isAdmin']),
+    isMember() {
+      return R.findIndex(R.propEq('id', this.id), this.game.players) !== -1;
+    },
+    isOpen() {
+      return this.game.status === 'OPEN';
+    },
+    isOngoing() {
+      return this.game.status === 'ONGOING';
+    },
+    progress() {
+      const matches = R.values(this.game.schedule);
+      const total = matches.length;
+      const played = R.filter(R.complement(R.propEq('status', 'SCHEDULED'))).length;
+      return { total, played, percent: Math.round(100 * (played / total)) };
+    },
+  },
+  methods: {
+
+  },
+};
+</script>
+<style lang="scss" scoped>
+.level {
+  &-right > .tag,
+  &-right > .tags,
+  &-left > .tag,
+  &-left > .tags,
+  &-right > .button,
+  &-left > .button {
+    margin-left: 0.125rem;
+    margin-right: 0.125rem;
+  }
+}
+</style>

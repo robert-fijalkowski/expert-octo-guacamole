@@ -25,8 +25,7 @@ import * as R from 'ramda';
 export default {
   name: 'games-list',
   props: {
-    players: { type: Array, default: R.always([]) },
-    table: { type: Array, default: R.always([]) },
+    game: { type: Object, default: R.always({}) },
     focus: { type: String, default: 'fake:4' },
     count: { type: Number, default: 3 },
     expanders: { type: Boolean, default: false },
@@ -34,6 +33,12 @@ export default {
   computed: {
     indexedPlayers() {
       return R.indexBy(R.prop('id'), this.players);
+    },
+    table() {
+      return this.game.table;
+    },
+    players() {
+      return this.game.players;
     },
     focusedTable() {
       const players = R.pluck('id', this.players);
