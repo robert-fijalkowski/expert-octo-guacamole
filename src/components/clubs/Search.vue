@@ -15,7 +15,7 @@
         <Complex :select="select" :selected.sync="selectedGame" class="column is-4" :club="club" v-for="club in data" :key="club.id" />
       </p>
     </div>
-    <div class=" has-text-centered "  v-else-if="done && phrase && data.length===0 ">
+    <div class=" has-text-centered " v-else-if="done && phrase && data.length===0 ">
       There is no results for your
       <span class="is-bold ">{{phrase}}</span>
     </div>
@@ -37,6 +37,7 @@ export default {
     'has-deep-search': { type: Boolean, default: true },
     simple: { type: Boolean, default: false },
     selected: { type: Function, default: () => {} },
+    limit: { type: Number, default: 21 },
   },
   data() {
     return {
@@ -62,7 +63,7 @@ export default {
       if (!this.phrase) {
         return false;
       }
-      return this.$api('GET', `/clubs?search=${this.phrase}${this.deep ? '&atLeast=fair' : ''}&limit=21`)
+      return this.$api('GET', `/clubs?search=${this.phrase}${this.deep ? '&atLeast=fair' : ''}&limit=${this.limit}`)
         .then((data) => { this.data = data; })
         .then(() => { this.done = true; })
         .catch(() => { this.done = true; });

@@ -12,11 +12,11 @@
             <b-tag type="is-warning" v-if="game.status === 'OPEN' && !isMember(game)">JOIN</b-tag>
           </router-link>
           <span @click="leave(game)" class="is-clickable">
-            <b-tag type="is-danger" v-if="isMember(game) ">Member of</b-tag>
+            <b-tag type="is-danger" v-if="isMember(game)">Member of</b-tag>
           </span>
-          <b-tag type="is-info">{{game.players.length}} players</b-tag>
+          <b-tag type="is-info" class="is-hidden-mobile">{{game.players.length}} players</b-tag>
         </div>
-        <FocusedTable :players="game.players " :table="game.table " />
+        <FocusedTable class="is-hidden-mobile" :players="game.players " :table="game.table " />
       </div>
     </div>
     <b-modal :active.sync="isJoinActive " :canCancel="false " @close="restore">

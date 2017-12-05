@@ -1,5 +1,6 @@
 <template>
   <div>
+    Create new Game
   </div>
 </template>
 <script>

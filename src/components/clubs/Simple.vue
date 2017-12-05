@@ -9,7 +9,7 @@
         </div>
         <div class="column is-4">
           <Stars :stars="club.stars" class="has-text-centered" />
-          <div class="has-text-centered club-tags">
+          <div class="has-text-centered club-tags is-hidden-mobile">
             <div class="is-inline-block">
               <b-taglist attached>
                 <b-tag type="is-dark">score</b-tag>
