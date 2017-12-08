@@ -7,14 +7,16 @@
         <th class="is-narrow">PL</th>
         <th class="is-narrow">PTS</th>
       </thead>
-      <tr v-for="({id, position, points, played, aClass=''},index) in focusedTable" :key="id" :class="aClass">
-        <td>{{position === 'no-position' || (focusedTable[index-1] || {}).position === position ? '' : position+'.'}}</td>
-        <td class="player">
-          <router-link :to="`/users/${id}`">{{player(id)}}</router-link>
-        </td>
-        <td class="has-text-centered">{{played}}</td>
-        <td class="has-text-centered">{{points}}</td>
-      </tr>
+      <tbody>
+        <tr v-for="({id, position, points, played, aClass=''},index) in focusedTable" :key="id" :class="aClass">
+          <td>{{position === 'no-position' || (focusedTable[index-1] || {}).position === position ? '' : position+'.'}}</td>
+          <td class="player">
+            <router-link :to="`/users/${id}`">{{player(id)}}</router-link>
+          </td>
+          <td class="has-text-centered">{{played}}</td>
+          <td class="has-text-centered">{{points}}</td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </template> 
@@ -84,38 +86,4 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../style/vars.scss";
-$odd: lighten($primary, 3%);
-$even: lighten($primary, 6%);
-$border: lighten($even, 15%);
-.in-table {
-  padding: 0.5rem;
-}
-.table {
-  color: lighten($primary-invert, 10%);
-  td {
-    border-bottom: 0;
-    border-top: 1px solid $border;
-  }
-  th {
-    border: 0;
-  }
-  thead {
-    background-color: $primary;
-    td,
-    th {
-      color: $primary-invert;
-    }
-  }
-  tr {
-    &.empty-row {
-      font-style: italic;
-    }
-    &:nth-child(2n) {
-      background-color: $even;
-    }
-    &:nth-child(2n + 1) {
-      background-color: $odd;
-    }
-  }
-}
 </style>

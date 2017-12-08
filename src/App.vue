@@ -30,9 +30,6 @@ body {
   background-attachment: fixed;
   padding: 5px 5px 0px 5px;
 }
-html {
-  background-color: black !important;
-}
 .viewport {
   margin-left: $navBarSize;
   min-height: calc(100% + -150px);

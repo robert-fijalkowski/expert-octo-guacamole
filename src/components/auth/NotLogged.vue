@@ -1,9 +1,24 @@
 <template>
-  <div>
-    You are not logged in.
-    <router-link :to="`/login?where=${redirect}`">
-      <button>now with github </button>
-    </router-link>
+  <div class="root">
+    <div class="has-text-centered hero is-primary is-medium is-vcentered">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            You are not logged in.
+          </h1>
+          <h2 class="subtitle is-hidden-touch">
+            Please do a login to proceed
+          </h2>
+          <router-link :to="`/login${redirect ? '?where='+redirect : ''}`">
+            <button class="button is-success is-large is-outlined">
+              <span>Login with</span>
+              <b-icon icon="github" />
+            </button>
+          </router-link>
+        </div>
+
+      </div>
+    </div>
   </div>
 </template> 
 <script>
@@ -34,3 +49,15 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.root {
+  padding: 1rem;
+  height: 100%;
+}
+.hero {
+  transform: translateY(50%);
+  top: 50%;
+  position: relative;
+}
+</style>
+

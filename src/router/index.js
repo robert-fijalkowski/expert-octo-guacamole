@@ -17,6 +17,7 @@ const router = new Router({
       redirect: '/dashboard',
     },
     { path: '/notLogged', component: NotLogged },
+    { path: '/about', component: NotLogged },
     { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true } },
     { path: '/clubs', component: ClubsView, meta: { requiresAuth: true } },
     ...games,

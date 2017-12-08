@@ -3,9 +3,7 @@
     <div class="tile is-ancestor">
       <div class="tile is-parent is-12">
         <div class="tile is-child box notification is-primary">
-          <Stats :games="myProfile.games" :userId="id" />
-          <!-- statystyki ze wszystkich  -->
-        </div>
+          <Stats :games="myProfile.games" :userId="id" /> </div>
       </div>
     </div>
     <div class="tile is-ancestor">

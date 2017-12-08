@@ -1,22 +1,41 @@
 <template>
   <div>
-    <div v-if="isLogged" class="nav columns is-centered is-mobile">
-      <div class='column is-1 avatar'>
-        <img :src="avatar" />
+    <div v-if="isLogged" class="nav">
+      <div>
+        <img class="avatar" :src="avatar" />
       </div>
-      <div class="column has-text-centered">
+      <div>
         {{username}}
+      </div>
+      <div>
+        <div @click="$router.push(`/games/${game.id}`)" v-for="game in lastGames" :key="game.id">
+          <button class="button is-small is-outlined is-warning" type="is-primary">{{game.name}}</button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
+import * as R from 'ramda';
 
 export default {
   name: 'userbar',
   computed: {
-    ...mapGetters(['isLogged', 'avatar', 'username', 'id']),
+    ...mapGetters(['isLogged', 'avatar', 'username', 'id', 'myProfile']),
+    count() {
+      return R.pipe(
+        R.pickAll(['games', 'contests']),
+        R.map(R.pipe(R.values, R.length)),
+      )(this.myProfile);
+    },
+    lastGames() {
+      const { games } = this.myProfile;
+      const sort = R.sortWith([
+        R.descend(R.pipe(R.prop('created'), R.map(d => new Date(d).getTime()))),
+      ]);
+      return R.pipe(R.values, sort, R.take(2))(games);
+    },
   },
 };
 </script>
@@ -26,18 +45,18 @@ export default {
   box-sizing: border-box;
   color: white;
   height: $navBarSize;
-  padding: 0px;
+  padding: 0.25rem;
   margin-left: $navBarSize;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
   div {
-    outline: 0px solid white;
+    align-content: space-between;
   }
-  .avatar {
-    display: inline-block;
-    img {
-      width: $navBarSize + -15px;
-      border-radius: 50%;
-    }
-    margin-left: 10px;
+  img.avatar {
+    width: auto;
+    height: 100%;
+    border-radius: 50%;
   }
 }
 </style>

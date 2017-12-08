@@ -37,6 +37,7 @@ $colors: (
   "dark": ($dark, $dark-invert),
   "primary": ($primary, $primary-invert),
   "primary-2":($primary-2, $primary-2-invert),
+  "primary-3":($primary-3, $primary-3-invert),
   "info": ($info, $info-invert),
   "success": ($success, $success-invert),
   "average": (#aadd33, black),
@@ -72,5 +73,41 @@ html {
 }
 .is-clickable {
   cursor: pointer;
+}
+$border: lighten($even, 15%);
+.in-table {
+  padding: 0.5rem;
+}
+table.table {
+  color: lighten($primary-invert, 10%);
+  td {
+    border-bottom: 0;
+    border-top: 1px solid $border;
+  }
+  th {
+    border: 0;
+  }
+  thead {
+    background-color: $primary;
+    td,
+    th {
+      color: $primary-invert;
+    }
+  }
+  tbody tr {
+    &.empty-row {
+      font-style: italic;
+    }
+    &:nth-child(2n + 1) {
+      background-color: $even;
+    }
+    &:not(.is-selected):nth-child(2n) {
+      background-color: $odd;
+    }
+  }
+}
+.b-table .table {
+  border: 0;
+  border-radius: 0;
 }
 </style>

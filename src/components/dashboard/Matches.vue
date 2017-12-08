@@ -3,8 +3,11 @@
     <p class="title">{{title}}</p>
     <div v-for="(match,index) in relatedMatches" :key="match.id">
       <div class="columns notification results">
-        <div class="edit is-small button is-primary">
+        <div class="edit button is-primary is-small" v-if="match.result">
           <b-icon icon="edit" />
+        </div>
+        <div class="edit button is-primary-2 is-small" v-else>
+          <b-icon icon="plus" />
         </div>
         <div class="column is-5 has-text-centered">
           <div class="title">{{match.home.user.name}}</div>
@@ -21,9 +24,6 @@
         </div>
         <div class="column is-2 has-text-centered" v-else>
           <div class="title is-size-7">vs</div>
-          <div class="button is-primary-2">
-            <b-icon icon="plus" />
-          </div>
         </div>
         <div class="column is-5 has-text-centered">
           <div class="title">{{match.visitor.user.name}}</div>
@@ -80,19 +80,8 @@ export default {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
 }
-.win {
-  background-color: #3a3;
-}
-.draw {
-  background-color: #ec3;
-}
-.lose {
-  background-color: #e33;
-}
-.fill {
-  background-color: #aaa;
-}
 .column {
+  // outline: 1px dashed rgba(255, 255, 255, 0.2);
 }
 </style>
 

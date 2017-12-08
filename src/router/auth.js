@@ -11,4 +11,5 @@ export default [
     component: Logout,
     meta: { requiresAuth: true },
   },
+
 ];

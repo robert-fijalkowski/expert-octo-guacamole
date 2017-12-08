@@ -1,10 +1,7 @@
 <template>
   <div class="root" v-if="game">
-    <Navigation :game="game" @action="handle" />
+    <Navigation :game="game" @action="handle" :from="from" />
     <Tabs :game="game" @action="handle" />
-    <div>
-      {{game}}
-    </div>
     <b-modal :active.sync="isJoinActive" :canCancel="true">
       <Join :fullGame="game" @joined="(d) => handle('joined',d)" />
     </b-modal>
@@ -24,6 +21,7 @@ export default {
   data() {
     return {
       game: null,
+      from: null,
       isJoinActive: false,
     };
   },
@@ -48,9 +46,17 @@ export default {
           return true;
       }
     },
+    load(gameId) {
+      this.$api('GET', `/games/${gameId || this.gameId}`).then((game) => { this.game = game; });
+    },
   },
   mounted() {
-    this.$api('GET', `/games/${this.gameId}`).then((game) => { this.game = game; });
+    this.load();
+  },
+  beforeRouteUpdate(to, from, next) {
+    Object.assign(this.$data, this.$options.data());
+    this.load(to.params.gameId);
+    next();
   },
 };
 </script>

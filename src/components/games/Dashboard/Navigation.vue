@@ -3,14 +3,29 @@
     <p class="title">{{game.name}}</p>
     <p class="subtitle has-text-centered is-size-6">{{game.location}}</p>
     <div class="level">
-      <div class="level-left">
-        <a class="button is-dark" @click="$router.push('/games')">Back</a>
-        <a class="button is-success" @click="$emit('action','start')" v-if="isAdmin && isOpen && game.competitorsSize >= 2">Start</a>
-        <a class="button is-warning" @click="$emit('action','join')" v-if="!isMember && isOpen">Join</a>
-        <a class="button is-danger" @click="$emit('action','left')" v-if="isMember && isOpen">Left</a>
-        <a class="button is-primary" v-if="isAdmin && isOngoing">Complete</a>
+      <div class="level-item">
+        <a class="button is-dark" @click="$router.push('/games')">
+          <b-icon icon="angle-left"></b-icon>
+          <span>Games</span>
+        </a>
+        <a class="button is-success" @click="$emit('action','start')" v-if="isAdmin && isOpen && game.competitorsSize >= 2">
+          <b-icon icon="play"></b-icon>
+          <span>Start</span>
+        </a>
+        <a class="button is-warning" @click="$emit('action','join')" v-if="!isMember && isOpen">
+          <b-icon icon="sign-in"></b-icon>
+          <span>Join</span>
+        </a>
+        <a class="button is-danger" @click="$emit('action','left')" v-if="isMember && isOpen">
+          <b-icon icon="sign-out"></b-icon>
+          <span>Left</span>
+        </a>
+        <a class="button is-primary" v-if="isAdmin && isOngoing">
+          <b-icon icon="check"></b-icon>
+          <span>Complete</span>
+        </a>
       </div>
-      <div class="level-right">
+      <div class="level-item is-mobile-flex">
         <b-tag type="is-danger" v-if="isMember">Member Of</b-tag>
         <b-tag type="is-info" class="is-hidden-mobile">{{game.status}}</b-tag>
         <b-tag type="is-primary">{{game.competitorsSize}} players</b-tag>
@@ -28,7 +43,12 @@ import { mapGetters } from 'vuex';
 
 export default {
   props: ['game'],
-  name: 'game-dashboard-dasboard',
+  name: 'game-dashboard-navigation',
+  data() {
+    return {
+      from: null,
+    };
+  },
   computed: {
     ...mapGetters(['id', 'isAdmin']),
     isMember() {
@@ -54,14 +74,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 .level {
-  &-right > .tag,
-  &-right > .tags,
-  &-left > .tag,
-  &-left > .tags,
-  &-right > .button,
-  &-left > .button {
-    margin-left: 0.125rem;
-    margin-right: 0.125rem;
+  &-item > .tag,
+  &-item > .tags,
+  &-item > .button {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
   }
 }
 </style>
