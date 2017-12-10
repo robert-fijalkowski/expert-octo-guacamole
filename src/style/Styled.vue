@@ -1,22 +1,7 @@
-<template>
-  <div>
-    <ClubSprite/>
-  </div>
-</template>
 <script>
-import ClubSprite from './ClubSprite';
-
 export default {
   name: 'styled',
-  components: { ClubSprite },
 };
-/*
-
-// Import Bulma's core
-
-// Set your colors
-
-*/
 </script>
 <style lang="scss">
 @import "./vars.scss";
@@ -69,7 +54,7 @@ html {
   font-size: 130%;
 }
 .notification {
-  padding: 1rem 1rem 1rem 1rem;
+  padding: 0.5rem;
 }
 .is-clickable {
   cursor: pointer;
@@ -77,6 +62,9 @@ html {
 $border: lighten($even, 15%);
 .in-table {
   padding: 0.5rem;
+}
+.b-tabs .tab-content {
+  padding: 0;
 }
 table.table {
   color: lighten($primary-invert, 10%);
@@ -109,5 +97,11 @@ table.table {
 .b-table .table {
   border: 0;
   border-radius: 0;
+}
+
+html {
+  @media screen and (max-width: $tablet) {
+    font-size: 13px;
+  }
 }
 </style>

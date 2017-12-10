@@ -62,7 +62,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .root {
-  padding: 1rem;
+  padding: 0.75rem;
 }
 .level {
   &-right > .tag,
@@ -75,7 +75,6 @@ export default {
     margin-right: 0.125rem;
   }
 }
-
 .card {
   background: transparent;
 }

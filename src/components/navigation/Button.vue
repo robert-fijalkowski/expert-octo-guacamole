@@ -1,9 +1,12 @@
 <template>
   <div class="main">
     <router-link :to="route">
-      <b-tooltip :label="text" position="is-right">
+      <b-tooltip :label="text" position="is-right" class="is-hidden-touch">
         <b-icon size="is-medium" :type="type" :icon="icon"></b-icon>
       </b-tooltip>
+      <div class="is-block-touch is-hidden-desktop">
+        <b-icon size="is-medium" :type="type" :icon="icon" />
+      </div>
     </router-link>
   </div>
 </template>
@@ -22,10 +25,13 @@ export default {
  
 <style lang="scss">
 @import "../../style/vars";
-$pad: 18px;
 .main {
-  padding-top: $pad;
-  padding-bottom: $pad;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  width: 3rem;
+  line-height: 1rem;
 }
 .icon {
   &.has-text-iconized > i.fa {

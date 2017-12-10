@@ -5,7 +5,8 @@
         <b-table-column label="P" width="1" numeric>
           {{ props.row.position }}
         </b-table-column>
-        <b-table-column label="First Name"> {{props.row.id}} </b-table-column>
+        <b-table-column label="First Name"> {{user(props.row.id).name}} </b-table-column>
+        <b-table-column label="Club"> {{club(props.row.id).name}} </b-table-column>
         <b-table-column label="PL" width=1 centered>{{props.row.played}}</b-table-column>
         <b-table-column label="W" class="is-hidden-mobile" width=1 centered numeric>{{props.row.wins}}</b-table-column>
         <b-table-column label="D" class="is-hidden-mobile" width=1 centered numeric>{{props.row.draws}}</b-table-column>
@@ -33,6 +34,12 @@ export default {
         [R.propEq('parity', 0), R.always('even')],
         [R.T, R.always('odd')],
       ])({ row, parity: index % 2 });
+    },
+    club(uid) {
+      return this.game.competitors[uid].club;
+    },
+    user(uid) {
+      return this.game.competitors[uid].user;
     },
   },
 };

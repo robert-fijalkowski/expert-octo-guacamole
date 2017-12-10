@@ -51,7 +51,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .root {
-  padding: 1rem;
+  padding: 0.75rem;
   height: 100%;
 }
 .hero {

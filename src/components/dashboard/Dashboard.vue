@@ -46,7 +46,7 @@ export default {
 
 <style lang="scss">
 .root {
-  padding: 1rem;
+  padding: 0.75rem;
 }
 .club-logo {
   width: 100px;

@@ -5,7 +5,7 @@ $twitter: #021730;
 $twitter-invert: findColorInvert($twitter);
 $background: #0c0c0c;
 $navBarEnd: mix($primary, $background, 75%);
-$navBarSize: 75px;
+$navBarSize: 3rem;
 
 $primary-2: lighten($primary, 27%);
 $primary-2-invert: findColorInvert($primary-2);

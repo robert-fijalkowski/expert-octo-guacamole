@@ -107,7 +107,7 @@ export default {
   display: flex;
 }
 .root {
-  padding: 1rem;
+  padding: 0.75rem;
 }
 .avatar {
   display: flex;

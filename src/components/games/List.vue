@@ -90,7 +90,7 @@ export default {
 
 <style lang="scss" scoped>
 .columns {
-  padding: 1rem;
+  padding: 0.75rem;
 }
 .column {
   position: relative;

@@ -22,17 +22,19 @@ export default {
  
 <style lang="scss">
 @import "./style/vars";
-#app,
 html,
 body {
   height: 100%;
   background: linear-gradient(to bottom, #222 0%, #090909 100%);
+  background-color: #222 !important;
   background-attachment: fixed;
-  padding: 5px 5px 0px 5px;
+  padding: 0.125rem;
 }
 .viewport {
   margin-left: $navBarSize;
   min-height: calc(100% + -150px);
-  margin-top: 5px;
+  @media screen and (max-width: $tablet) {
+    margin-left: 0;
+  }
 }
 </style>
