@@ -43,5 +43,11 @@ body {
   @media screen and (max-width: $tablet) {
     margin-left: 0;
   }
+  position: relative;
+  & > * {
+    position: relative;
+    max-width: 1216px;
+    margin: auto;
+  }
 }
 </style>

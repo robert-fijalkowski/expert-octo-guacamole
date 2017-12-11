@@ -41,6 +41,9 @@ export default {
       this.$api('POST', `games/${this.game.id}/competitors`, { uid: this.uid, club: this.club.id })
         .then((game) => {
           this.$emit('joined', game);
+        })
+        .catch((err) => {
+          this.$toast.open({ type: 'is-danger', message: err.response.text });
         });
     },
     selected(club) {

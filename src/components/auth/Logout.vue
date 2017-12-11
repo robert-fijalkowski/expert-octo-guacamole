@@ -10,19 +10,8 @@ export default {
     ...mapActions(['logout']),
   },
   mounted() {
-    this.isLoading = false;
     this.$router.push('/about');
-    this.logout(event.data.jwt);
-  },
-  data() {
-    return {
-    };
+    this.logout();
   },
 };
 </script>
-<style lang="scss" scoped>
-iframe {
-  width: 100%;
-  border: 1px solid red;
-}
-</style>
