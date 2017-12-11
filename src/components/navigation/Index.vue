@@ -1,6 +1,6 @@
 <template>
-  <div class="navigation has-text-centered" :class="isVisible ? 'show' : ''">
-    <div class="logo" @click="toggleShow">
+  <div class="navigation has-text-centered" :class="menuVisible ? 'show' : ''">
+    <div class="logo" @click="toggleMenu">
       <img src="../../assets/premiersted.svg" />
     </div>
     <span class="buttons" v-if="isLogged">
@@ -20,23 +20,18 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 import MenuButton from './Button';
 
 export default {
   name: 'nabvar',
   components: { MenuButton },
-  data() {
-    return { isVisible: false };
-  },
   computed: {
-    ...mapGetters(['isLogged', 'isAdmin', 'isUser']),
+    ...mapGetters(['isLogged', 'isAdmin', 'isUser', 'menuVisible']),
   },
   methods: {
-    toggleShow() {
-      this.isVisible = !this.isVisible;
-    },
+    ...mapActions(['toggleMenu']),
   },
 };
 </script>

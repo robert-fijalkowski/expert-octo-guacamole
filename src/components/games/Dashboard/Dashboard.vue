@@ -2,7 +2,7 @@
   <div class="root" v-if="game">
     <Navigation :game="game" @action="handle" :from="from" />
     <Tabs :game="game" @action="handle" />
-    <b-modal :active.sync="isJoinActive" :canCancel="true">
+    <b-modal :active.sync="isJoinActive" has-modal-card :canCancel="true">
       <Join :fullGame="game" @joined="(d) => handle('joined',d)" />
     </b-modal>
   </div>

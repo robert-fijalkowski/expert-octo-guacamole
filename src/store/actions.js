@@ -2,6 +2,7 @@ import * as types from './mutation-types';
 import { api } from '../plugins/api';
 
 const isTokenValid = token => true;
+
 const refreshProfile = ({ commit, state }) => {
   api(state)('GET', '/users/myprofile').then(profile => commit(types.SET_MY_PROFILE, profile));
 };
@@ -19,6 +20,15 @@ export default {
   login({ commit, state }, token) {
     window.localStorage.setItem('TOKEN', token);
     decodeToken(token, { commit, state });
+  },
+  hideMenu({ commit }) {
+    commit(types.HIDE_MENU);
+  },
+  toggleMenu({ commit, state: { menuVisible } }) {
+    if (menuVisible) {
+      return commit(types.HIDE_MENU);
+    }
+    return commit(types.SHOW_MENU);
   },
   loadLocalStorage({ commit, state }) {
     const token = window.localStorage.getItem('TOKEN');

@@ -7,6 +7,7 @@ export default {
   isAdmin: state => state.access === 'ADMIN',
   isUser: (state, getters) => getters.isAdmin || state.access === 'USER',
   myProfile: state => state.myProfile,
+  menuVisible: state => state.menuVisible,
   username: (state, getters) => {
     const { profile } = getters;
     return profile.display_name || profile.name || profile.email;

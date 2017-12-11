@@ -26,4 +26,10 @@ export default {
   [types.SET_MY_PROFILE](state, myProfile) {
     state.myProfile = myProfile;
   },
+  [types.HIDE_MENU](state) {
+    state.menuVisible = false;
+  },
+  [types.SHOW_MENU](state) {
+    state.menuVisible = true;
+  },
 };

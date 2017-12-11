@@ -3,13 +3,14 @@
     <Styled/>
     <Navigation/>
     <UserBar/>
-    <div class="viewport">
+    <div class="viewport" @click="hideMenu">
       <router-view/>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Navigation from '@/components/navigation/Index';
 import Styled from '@/style/Styled';
 import UserBar from '@/components/UserBar';
@@ -17,6 +18,9 @@ import UserBar from '@/components/UserBar';
 export default {
   name: 'app',
   components: { Navigation, Styled, UserBar },
+  methods: {
+    ...mapActions(['hideMenu']),
+  },
 };
 </script>
  
@@ -32,7 +36,7 @@ body {
 }
 .viewport {
   margin-left: $navBarSize;
-  min-height: calc(100% + -150px);
+  min-height: calc(100% + $navBarSize);
   @media screen and (max-width: $tablet) {
     margin-left: 0;
   }

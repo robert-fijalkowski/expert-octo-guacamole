@@ -10,6 +10,7 @@ const store = new Vuex.Store({
   state: {
     token: null,
     loggedIn: false,
+    menuVisible: false,
     access: null,
     profile: {},
     myProfile: {},
