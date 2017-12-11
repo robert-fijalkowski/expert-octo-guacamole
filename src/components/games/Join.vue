@@ -4,14 +4,13 @@
       <p class="title is-centered">Join to game</p>
       <p class="subtitle"> {{game.name}}, {{game.location}} </p>
     </header>
-    <section class="modal-card-body notification is-primary">
+    <section class="modal-card-body  is-primary">
       <Search :has-deep-search="false" :selected="selected" simple :limit="21" />
     </section>
     <footer class="modal-card-foot">
       <button class="button is-danger" type="button" @click="$parent.close(false)">Abandon</button>
       <button class="button is-warning is-pulled-right" @click="join" v-if="club">
-        <span>Join</span>
-        <span class="is-hidden-mobile">&nbsp;as {{club.name}}</span>
+        Join as {{club.name}}
       </button>
     </footer>
   </div>
@@ -55,5 +54,15 @@ export default {
 @import "../../style/vars";
 .modal-card-head {
   flex-direction: column;
+}
+.modal-card-body {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: $primary;
+  color: $primary-invert;
+  overflow-x: hidden;
+  @media screen and (max-width: $tablet) {
+    overflow: auto;
+  }
 }
 </style>

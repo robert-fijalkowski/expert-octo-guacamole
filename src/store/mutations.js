@@ -32,4 +32,7 @@ export default {
   [types.SHOW_MENU](state) {
     state.menuVisible = true;
   },
+  [types.NOT_LOGGED_CAUSE](state, cause) {
+    state.notLoggedCause = cause;
+  },
 };

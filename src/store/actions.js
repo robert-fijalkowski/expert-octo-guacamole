@@ -6,14 +6,23 @@ const isTokenValid = token => true;
 const refreshProfile = ({ commit, state }) => {
   api(state)('GET', '/users/myprofile').then(profile => commit(types.SET_MY_PROFILE, profile));
 };
+
 const decodeToken = (token, { commit, state }) => {
   const [, payload] = token.split('.');
-  const { access, meta, id } = JSON.parse(atob(payload));
-  commit(types.SET_ACCESS_LEVEL, access);
-  commit(types.SET_USER_PROFILE, meta);
-  commit(types.NEW_JWT_TOKEN, token);
-  commit(types.SET_USER_ID, id);
-  refreshProfile({ commit, state });
+  const {
+    access, meta, id, exp,
+  } = JSON.parse(atob(payload));
+  const now = Date.now() / 1000;
+  if (exp < now) {
+    commit(types.NOT_LOGGED_CAUSE, 'Token has expired!');
+  } else {
+    commit(types.NOT_LOGGED_CAUSE, null);
+    commit(types.SET_ACCESS_LEVEL, access);
+    commit(types.SET_USER_PROFILE, meta);
+    commit(types.NEW_JWT_TOKEN, token);
+    commit(types.SET_USER_ID, id);
+    refreshProfile({ commit, state });
+  }
 };
 
 export default {

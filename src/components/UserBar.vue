@@ -1,16 +1,8 @@
 <template>
   <div>
     <div v-if="isLogged" class="nav">
-      <div>
-        <img class="avatar" :src="avatar" />
-      </div>
-      <div>
-        {{username}}
-      </div>
-      <div>
-        <div @click="$router.push(`/games/${game.id}`)" v-for="game in lastGames" :key="game.id">
-          <button class="button is-small is-outlined is-warning" type="is-primary">{{game.name}}</button>
-        </div>
+      <div @click="$router.push(`/games/${game.id}`)" v-for="game in lastGames" :key="game.id">
+        <button class="button  is-outlined is-warning" type="is-primary">{{game.name}}</button>
       </div>
     </div>
   </div>

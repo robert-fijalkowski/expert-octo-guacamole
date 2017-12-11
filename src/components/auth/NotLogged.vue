@@ -9,6 +9,9 @@
           <h2 class="subtitle is-hidden-touch">
             Please do a login to proceed
           </h2>
+          <h2 class="subtitle" v-if="notLoggedCause">
+            {{notLoggedCause}}
+          </h2>
           <router-link :to="`/login${redirect ? '?where='+redirect : ''}`">
             <button class="button is-success is-large is-outlined">
               <span>Login with</span>
@@ -27,7 +30,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'not-logged',
   computed: {
-    ...mapGetters(['isLogged']),
+    ...mapGetters(['isLogged', 'notLoggedCause']),
     redirect() {
       return this.$route.query.redirect;
     },
@@ -56,7 +59,6 @@ export default {
 }
 .hero {
   transform: translateY(50%);
-  top: 50%;
   position: relative;
 }
 </style>

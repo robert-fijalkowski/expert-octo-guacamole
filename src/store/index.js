@@ -14,6 +14,7 @@ const store = new Vuex.Store({
     access: null,
     profile: {},
     myProfile: {},
+    notLoggedCause: null,
   },
   actions,
   mutations,

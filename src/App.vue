@@ -34,9 +34,12 @@ body {
   background-attachment: fixed;
   padding: 0.125rem;
 }
+#app {
+  height: 100%;
+}
 .viewport {
   margin-left: $navBarSize;
-  min-height: calc(100% + $navBarSize);
+  height: calc(100% - 3rem);
   @media screen and (max-width: $tablet) {
     margin-left: 0;
   }
