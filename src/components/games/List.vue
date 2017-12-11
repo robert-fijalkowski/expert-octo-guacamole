@@ -1,29 +1,31 @@
 <template>
-  <div class="columns is-multiline">
-    <div class="column  is-6" v-for="game in games" :key="game.id">
-      <div class="notification">
-        <router-link :to="`/games/${game.id}`">
-          <p class="title">{{game.name}}</p>
-        </router-link>
-        <p class="subtitle has-text-centered is-size-6">{{game.location}}</p>
-        <FocusedTable :game="game" />
-        <div class="floating-tag">
-          <b-tag type="is-primary">{{game.status}}</b-tag>
-          <router-link :to="`/games/join?game=${game.id}`">
-            <b-tag type="is-warning" v-if="game.status === 'OPEN' && !isMember(game)">JOIN</b-tag>
+  <div class="root">
+    <div class="columns is-multiline">
+      <div class="column  is-6" v-for="game in games" :key="game.id">
+        <div class="notification">
+          <router-link :to="`/games/${game.id}`">
+            <p class="title">{{game.name}}</p>
           </router-link>
-          <span @click="leave(game)" class="is-clickable">
-            <b-tag type="is-danger" v-if="isMember(game)">Member of</b-tag>
-          </span>
-          <b-tag type="is-info" class="is-hidden-mobile">{{game.players.length}} players</b-tag>
+          <p class="subtitle has-text-centered is-size-6">{{game.location}}</p>
+          <FocusedTable :game="game" />
+          <div class="floating-tag">
+            <b-tag type="is-primary">{{game.status}}</b-tag>
+            <router-link :to="`/games/join?game=${game.id}`">
+              <b-tag type="is-warning" v-if="game.status === 'OPEN' && !isMember(game)">JOIN</b-tag>
+            </router-link>
+            <span @click="leave(game)" class="is-clickable">
+              <b-tag type="is-danger" v-if="isMember(game)">Member of</b-tag>
+            </span>
+            <b-tag type="is-info" class="is-hidden-mobile">{{game.players.length}} players</b-tag>
+          </div>
         </div>
       </div>
+      <b-modal :active.sync="isJoinActive " :canCancel="false" has-modal-card @close="restore">
+        <div class="card">
+          <Join :gameId="gameId" @joined="whenJoined" />
+        </div>
+      </b-modal>
     </div>
-    <b-modal :active.sync="isJoinActive " :canCancel="false" has-modal-card @close="restore">
-      <div class="card">
-        <Join :gameId="gameId" @joined="whenJoined" />
-      </div>
-    </b-modal>
   </div>
 </template> 
 
@@ -89,7 +91,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.columns {
+.root {
   padding: 0.75rem;
 }
 .column {

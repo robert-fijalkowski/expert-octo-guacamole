@@ -51,7 +51,7 @@ export default {
   width: $navBarSize;
   height: 100%;
   font-size: 1rem;
-  z-index: 1;
+  z-index: 2000;
   transition: all 0.4s ease-in-out;
 
   @media screen and (max-width: $tablet) {
@@ -60,7 +60,8 @@ export default {
     background: rgba(0, 0, 0, 0);
 
     &.show {
-      width: $navBarSize*1.25;
+      width: $navBarSize*1.5;
+      font-size: 1.25rem;
       height: 100%;
       background: rgba(0, 0, 0, 1);
     }
