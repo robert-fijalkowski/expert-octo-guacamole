@@ -73,11 +73,14 @@ html {
   background-color: $black-ter;
 }
 
-.modal-card-foot,
 .modal-card-head {
   border-color: $black-ter;
 }
 
+.modal-card-foot {
+  border-top: 1px solid ligten($black-ter, 20%);
+  border-color: $black-ter;
+}
 .nav {
   background-color: #000;
   border: 1px solid $grey-darker;

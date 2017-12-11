@@ -1,6 +1,5 @@
 <template>
-  <div>
-  </div>
+  <span/>
 </template>
 <script>
 export default {

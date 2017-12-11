@@ -1,7 +1,14 @@
+<template>
+  <ClubSprite/>
+</template>
 <script>
+import ClubSprite from './ClubSprite';
+
 export default {
   name: 'styled',
+  components: { ClubSprite },
 };
+
 </script>
 <style lang="scss">
 @import "./vars.scss";
@@ -100,8 +107,8 @@ table.table {
 }
 
 html {
-  @media screen and (max-width: $tablet) {
-    font-size: 13px;
+  @media screen and (max-width: ($tablet - 2px)) {
+    font-size: 12px;
   }
 }
 </style>

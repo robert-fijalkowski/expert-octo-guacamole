@@ -1,18 +1,19 @@
 <template>
-  <div>
-    <div class="modal-card notification is-primary">
+  <div class="modal-card notification">
+    <header class="modal-card-head">
       <p class="title is-centered">Join to game</p>
       <p class="subtitle"> {{game.name}}, {{game.location}} </p>
-      <p class="detail">{{game.description}}</p>
-      <Search :has-deep-search="false" :selected="selected" simple :limit="3" />
-      <footer class=" modal-card-body notification is-primary ">
-        <button class="button is-danger" type="button" @click="$parent.close(false)">Abandon</button>
-        <button class="button is-warning is-pulled-right" @click="join" v-if="club">
-          <span>Join</span>
-          <span class="is-hidden-mobile">&nbsp;as {{club.name}}</span>
-        </button>
-      </footer>
-    </div>
+    </header>
+    <section class="modal-card-body notification is-primary">
+      <Search :has-deep-search="false" :selected="selected" simple :limit="21" />
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-danger" type="button" @click="$parent.close(false)">Abandon</button>
+      <button class="button is-warning is-pulled-right" @click="join" v-if="club">
+        <span>Join</span>
+        <span class="is-hidden-mobile">&nbsp;as {{club.name}}</span>
+      </button>
+    </footer>
   </div>
 </template> 
 
@@ -50,6 +51,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss"  scoped>
+@import "../../style/vars";
+.modal-card-head {
+  flex-direction: column;
+}
 </style>
