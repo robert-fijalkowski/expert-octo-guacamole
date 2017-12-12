@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <b-loading :active.sync="isLoading" :canCancel="true"></b-loading>
-  </div>
+  <div> </div>
 </template>
 <script>
 import { mapActions } from 'vuex';
@@ -12,13 +10,13 @@ export default {
   methods: {
     processMessage(event) {
       if (event.data.jwt) {
-        this.isLoading = false;
+        this.loaded();
         const { where = '/dashboard' } = this.$route.query;
         this.$router.push(where);
         this.login(event.data.jwt);
       }
     },
-    ...mapActions(['login']),
+    ...mapActions(['login', 'isLoading', 'loaded']),
   },
   created() {
     window.addEventListener('message', this.processMessage);
@@ -27,16 +25,20 @@ export default {
     window.removeEventListener('message', this.processMessage);
   },
   mounted() {
+    this.isLoading();
     const w = window.open(this.iFrameSrc, 'Github Login');
     const send = () => {
       w.postMessage('ready?', '*');
-      if (!w.closed) { setTimeout(send, 150); }
+      if (!w.closed) {
+        setTimeout(send, 150);
+      } else {
+        this.loaded();
+      }
     };
     send();
   },
   data() {
     return {
-      isLoading: true,
       API_URL,
     };
   },

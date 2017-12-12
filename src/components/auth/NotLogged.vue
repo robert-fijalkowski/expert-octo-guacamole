@@ -2,7 +2,7 @@
   <div class="root">
     <div class="has-text-centered hero is-primary is-medium is-vcentered">
       <div class="hero-body">
-        <div class="container">
+        <div>
           <h1 class="title">
             You are not logged in.
           </h1>

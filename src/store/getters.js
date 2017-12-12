@@ -8,6 +8,7 @@ export default {
   isUser: (state, getters) => getters.isAdmin || state.access === 'USER',
   myProfile: state => state.myProfile,
   menuVisible: state => state.menuVisible,
+  busy: state => state.busy,
   notLoggedCause: state => state.notLoggedCause,
   username: (state, getters) => {
     const { profile } = getters;

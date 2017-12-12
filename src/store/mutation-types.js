@@ -7,3 +7,5 @@ export const SET_MY_PROFILE = 'SET_MY_PROFILE';
 export const HIDE_MENU = 'HIDE_MENU';
 export const SHOW_MENU = 'SHOW_MENU';
 export const NOT_LOGGED_CAUSE = 'NOT_LOGGED_CAUSE';
+export const IS_LOADING = 'IS_LOADING';
+export const LOADED = 'LOADED';

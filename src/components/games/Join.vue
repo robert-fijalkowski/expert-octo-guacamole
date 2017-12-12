@@ -40,6 +40,7 @@ export default {
     join() {
       this.$api('POST', `games/${this.game.id}/competitors`, { uid: this.uid, club: this.club.id })
         .then((game) => {
+          this.$toast.open({ type: 'is-success', message: `Successfuly joined to ${game.name} as ${this.club.name}` });
           this.$emit('joined', game);
         })
         .catch((err) => {

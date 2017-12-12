@@ -33,6 +33,12 @@ export default {
   hideMenu({ commit }) {
     commit(types.HIDE_MENU);
   },
+  isLoading({ commit }) {
+    commit(types.IS_LOADING);
+  },
+  loaded({ commit }) {
+    commit(types.LOADED);
+  },
   toggleMenu({ commit, state: { menuVisible } }) {
     if (menuVisible) {
       return commit(types.HIDE_MENU);

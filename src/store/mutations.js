@@ -35,4 +35,10 @@ export default {
   [types.NOT_LOGGED_CAUSE](state, cause) {
     state.notLoggedCause = cause;
   },
+  [types.IS_LOADING](state) {
+    state.busy = true;
+  },
+  [types.LOADED](state) {
+    state.busy = false;
+  },
 };

@@ -6,11 +6,13 @@
     <div class="viewport" @click="hideMenu">
       <router-view/>
     </div>
+    <b-loading :active.sync="busy" :canCancel="true"></b-loading>
+
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import Navigation from '@/components/navigation/Index';
 import Styled from '@/style/Styled';
 import UserBar from '@/components/UserBar';
@@ -18,9 +20,8 @@ import UserBar from '@/components/UserBar';
 export default {
   name: 'app',
   components: { Navigation, Styled, UserBar },
-  methods: {
-    ...mapActions(['hideMenu']),
-  },
+  methods: { ...mapActions(['hideMenu']) },
+  computed: { ...mapGetters(['busy']) },
 };
 </script>
  
