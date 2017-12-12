@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="root">
     <p class="title">{{title}}</p>
     <div v-for="(match,index) in relatedMatches" :key="match.id">
       <div class="columns notification results">
@@ -11,15 +11,11 @@
         </div>
         <div class="column is-5 has-text-centered">
           <div class="title">{{match.home.user.name}}</div>
-          <div class="subtitle">{{match.home.club.name}}</div>
+          <div class="subtitle is-size-6">{{match.home.club.name}}</div>
         </div>
         <div class="column is-2" v-if="match.result">
-          <div class="columns">
-            <div class="column is-4 is-size-3 has-text-weight-bold has-text-centered">{{match.result.home}}</div>
-            <div class="column is-4  has-text-centered">
-              vs
-            </div>
-            <div class="column is-4 is-size-3 has-text-weight-bold has-text-centered">{{match.result.visitor}}</div>
+          <div class="is-size-4 has-text-weight-bold has-text-centered">
+            {{match.result.home}}&nbsp;:&nbsp;{{match.result.visitor}}
           </div>
         </div>
         <div class="column is-2 has-text-centered" v-else>
@@ -27,7 +23,7 @@
         </div>
         <div class="column is-5 has-text-centered">
           <div class="title">{{match.visitor.user.name}}</div>
-          <div class="subtitle">{{match.visitor.club.name}}</div>
+          <div class="subtitle is-size-6">{{match.visitor.club.name}}</div>
         </div>
       </div>
     </div>
@@ -64,6 +60,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.root {
+  font-size: 80%;
+}
 .results {
   font-family: "Montserrat";
   letter-spacing: -1px;

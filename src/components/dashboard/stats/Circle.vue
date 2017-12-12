@@ -33,9 +33,9 @@ export default {
   font-weight: bold;
 }
 .circle {
-  width: 100px;
+  width: 80px;
   position: relative;
-  height: 100px;
+  height: 80px;
   border-radius: 50%;
   background-color: $background;
   overflow: hidden;

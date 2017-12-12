@@ -11,6 +11,7 @@
         <b-table-column label="W" class="is-hidden-mobile" width=1 centered numeric>{{props.row.wins}}</b-table-column>
         <b-table-column label="D" class="is-hidden-mobile" width=1 centered numeric>{{props.row.draws}}</b-table-column>
         <b-table-column label="L" class="is-hidden-mobile" width=1 centered numeric>{{props.row.loses}}</b-table-column>
+        <b-table-column label="GS-GC" class="is-hidden-mobile" width=1 centered numeric>{{props.row.scored}}-{{props.row.lost}}</b-table-column>
         <b-table-column label="B" class="is-hidden-mobile" width=1 centered numeric>{{(props.row.balance > 0 ? '+'+props.row.balance : props.row.balance)}}</b-table-column>
         <b-table-column label="PTS" width=1 centered numeric>{{props.row.points}}</b-table-column>
       </template>

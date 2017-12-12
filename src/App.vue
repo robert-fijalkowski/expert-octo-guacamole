@@ -40,6 +40,7 @@ body {
 }
 .viewport {
   margin-left: $navBarSize;
+  padding: 0.75rem;
   height: calc(100% - 3rem);
   @media screen and (max-width: $tablet) {
     margin-left: 0;

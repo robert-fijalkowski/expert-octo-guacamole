@@ -61,9 +61,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.root {
-  padding: 0.75rem;
-}
 .level {
   &-right > .tag,
   &-right > .tags,

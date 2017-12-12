@@ -91,9 +91,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.root {
-  padding: 0.75rem;
-}
 .column {
   position: relative;
   .floating-tag {

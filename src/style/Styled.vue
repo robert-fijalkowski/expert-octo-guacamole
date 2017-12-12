@@ -41,7 +41,7 @@ a {
   text-decoration: none !important;
 }
 // Links
-$text: $primary-2;
+$text: $primary-2-invert;
 $text-strong: darken($primary-2-invert, 15%);
 $link: $primary-2-invert;
 $link-invert: $primary-invert;
@@ -59,6 +59,10 @@ html {
   text-transform: uppercase;
   font-family: "Montserrat";
   font-size: 130%;
+}
+.subtitle {
+  text-align: center;
+  font-family: "Montserrat";
 }
 .notification {
   padding: 0.5rem;

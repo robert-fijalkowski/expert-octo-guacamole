@@ -52,14 +52,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-.root {
-  padding: 0.75rem;
-  height: 100%;
-}
-.hero {
-  transform: translateY(50%);
-  position: relative;
-}
-</style>
 

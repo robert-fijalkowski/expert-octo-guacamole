@@ -106,9 +106,6 @@ export default {
   justify-content: center;
   display: flex;
 }
-.root {
-  padding: 0.75rem;
-}
 .avatar {
   display: flex;
   overflow: hidden;

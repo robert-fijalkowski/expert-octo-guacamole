@@ -1,5 +1,9 @@
 <template>
   <div v-if="table && table.length > 0" class="in-table">
+    <span v-if="title">
+      <p class="title">{{title}}</p>
+      <p class="subtitle has-text-centered is-size-6">{{game.name}}</p>
+    </span>
     <table class="table is-fullwidth is-stripped">
       <thead>
         <th class="is-narrow">Pos.</th>
@@ -11,7 +15,10 @@
         <tr v-for="({id, position, points, played, aClass=''},index) in focusedTable" :key="id" :class="aClass">
           <td>{{position === 'no-position' || (focusedTable[index-1] || {}).position === position ? '' : position+'.'}}</td>
           <td class="player">
-            <router-link :to="`/users/${id}`">{{player(id)}}</router-link>
+            <router-link v-if="aClass !== 'empty-row'" :to="`/users/${id}`">
+              {{player(id)}}
+            </router-link>
+            <span v-else>{{player(id)}}</span>
           </td>
           <td class="has-text-centered">{{played}}</td>
           <td class="has-text-centered">{{points}}</td>
@@ -28,7 +35,8 @@ export default {
   name: 'games-list',
   props: {
     game: { type: Object, default: R.always({}) },
-    focus: { type: String, default: 'fake:4' },
+    focus: { type: String, default: null },
+    title: { type: String, default: '' },
     count: { type: Number, default: 3 },
     expanders: { type: Boolean, default: false },
   },
@@ -70,6 +78,13 @@ export default {
             R.identity,
             n => [{ aClass: 'empty-row', position: 'no-position', id: `${from + 1} players more` }].concat(n),
           ),
+          R.map((e) => {
+            console.log(e);
+            if (e.id === this.focus) {
+              return { ...e, aClass: 'focused' };
+            }
+            return e;
+          }),
         ),
       )(focusingIndex);
       return focused(this.table);
@@ -86,4 +101,8 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../style/vars.scss";
+.focused {
+  background: $primary-2 !important;
+  color: $primary-2-invert;
+}
 </style>
