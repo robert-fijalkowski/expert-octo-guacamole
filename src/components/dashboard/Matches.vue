@@ -6,9 +6,6 @@
         <div class="edit button is-primary is-small" v-if="match.result">
           <b-icon icon="edit" />
         </div>
-        <div class="edit button is-primary-2 is-small" v-else>
-          <b-icon icon="plus" />
-        </div>
         <div class="column is-5 has-text-centered">
           <div class="title">{{match.home.user.name}}</div>
           <div class="subtitle is-size-6">{{match.home.club.name}}</div>
@@ -19,7 +16,10 @@
           </div>
         </div>
         <div class="column is-2 has-text-centered" v-else>
-          <div class="title is-size-7">vs</div>
+          <div class="button is-primary-2 is-small">
+            <b-icon icon="plus" />
+          </div>
+          <div class="title is-size-7 versus">vs</div>
         </div>
         <div class="column is-5 has-text-centered">
           <div class="title">{{match.visitor.user.name}}</div>
@@ -73,6 +73,9 @@ export default {
     top: 0.25rem;
   }
 }
+.versus {
+  margin-top: 0.25rem;
+}
 .notification {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
@@ -81,6 +84,7 @@ export default {
 }
 .column {
   // outline: 1px dashed rgba(255, 255, 255, 0.2);
+  padding: 0.25rem;
 }
 </style>
 

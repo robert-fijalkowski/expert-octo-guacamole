@@ -3,7 +3,7 @@
     <div class="has-text-centered hero is-primary is-medium is-vcentered">
       <div class="hero-body">
         <div>
-          <h1 class="title">
+          <h1 class="title is-size-3">
             You are not logged in.
           </h1>
           <h2 class="subtitle is-hidden-touch">

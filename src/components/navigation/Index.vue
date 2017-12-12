@@ -8,9 +8,10 @@
       <MenuButton text="List of games" v-if="isUser" icon="list" route="/games" />
       <MenuButton text="List of users" v-if="isUser" icon="users" route="/users" />
       <MenuButton text="Clubs search" icon="futbol-o" route="/clubs" />
-      <MenuButton text="Settings & My Profile" icon="cog" route="/settings" />
-      <MenuButton text="Logout" icon="sign-out" route="/logout" />
+      <MenuButton text="Settings & My Profile" icon="cog" v-if="false" route="/settings" />
+      <MenuButton text="Add League" icon="plus" route="/create" v-if="isAdmin" />
       <MenuButton text="About us" icon="info-circle" route="/about" />
+      <MenuButton text="Logout" icon="sign-out" route="/logout" />
     </span>
     <span class="buttons" v-if="!isLogged">
       <MenuButton text="Login with github" icon="github" route="/login" />

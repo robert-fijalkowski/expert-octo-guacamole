@@ -27,7 +27,7 @@ $colors: (
   "gold": ($gold, invert($gold)),
   "light": ($light, $light-invert),
   "dark": ($dark, $dark-invert),
-  "primary": ($primary, $primary-invert),
+  "primary": ($primary, darken($primary-invert, 15%)),
   "primary-2":($primary-2, $primary-2-invert),
   "primary-3":($primary-3, $primary-3-invert),
   "info": ($info, $info-invert),
@@ -41,9 +41,10 @@ a {
   text-decoration: none !important;
 }
 // Links
-$text: $primary-2-invert;
+$text: darken($primary-2-invert, 20%);
 $text-strong: darken($primary-2-invert, 15%);
-$link: $primary-2-invert;
+$link: $primary-invert;
+$link-active: $primary-2-invert;
 $link-invert: $primary-invert;
 $link-focus-border: $primary-2;
 

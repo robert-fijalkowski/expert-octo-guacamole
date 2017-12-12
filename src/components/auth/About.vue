@@ -1,7 +1,8 @@
 <template>
   <div>
+    <NotLogged v-if="!isLogged" class="margin-after" />
     <article class="notification margin-after">
-      <p class="title">About Us</p>
+      <p class="title is-size-3">About Us</p>
       <section class="content">
         Schibsted Professional League System (SPLS) started its life as a HackDay project. It was initially planned as a basic solution for a single league purposes. Over time the project has evolved to a scalable platform that enables users to run multiple leagues, with reach statistics, advanced club search function and fixtures previews.</p>
         Here is a quick overview of the possibilities within the platform:
@@ -41,7 +42,6 @@
         </p>
       </section>
     </article>
-    <NotLogged v-if="!isLogged" class="margin-after" />
 
   </div>
 </template>

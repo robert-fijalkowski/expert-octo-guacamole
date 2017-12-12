@@ -1,33 +1,25 @@
 <template>
-  <div class="notification is-primary">
-    <button class="button is-info" @click="back()">
-      <b-icon icon="arrow-left"></b-icon>
-      <span>Back</span>
-    </button>
+  <div>
+    <Dashboard :id="id" :profile="profile" v-if="profile" />
   </div>
 </template>
 
 <script>
 
 import { mapGetters } from 'vuex';
+import Dashboard from '../dashboard/Dashboard';
 
 export default {
+  components: { Dashboard },
   name: 'users-view',
   props: ['id'],
   data() {
     return {
       profile: {},
-      from: null,
     };
   },
   computed: {
     ...mapGetters(['isAdmin']),
-
-  },
-  methods: {
-    back() {
-      this.$router.go(-1);
-    },
   },
   mounted() {
     this.$api('GET', `/users/${this.id}`).then((profile) => { this.profile = profile; });

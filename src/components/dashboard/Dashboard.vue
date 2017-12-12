@@ -3,23 +3,32 @@
     <div class="tile is-ancestor">
       <div class="tile is-parent" :class="focusedGame ? 'is-6' : 'is-12'">
         <div class="tile is-child box notification is-primary">
-          <Stats :games="myProfile.games" :userId="id" /> </div>
+          <Stats :games="profile.games" :userId="id" /> </div>
       </div>
-      <div class="tile is-parent is-6" v-if="focusedGame">
+      <div class="tile is-parent is-6" v-if="focusedGame.length > 0">
         <div class="tile is-child box notification is-primary">
-          <FocusedTable title="Current Game" expanders :focus="id" :game="focusedGame" />
+          <span v-if="focusedGame.length === 1">
+            <FocusedTable title="Current Game" expanders :focus="id" :game="focusedGame[0]" />
+          </span>
+          <span v-else>
+            <b-tabs>
+              <b-tab-item :label="game.name" v-for="game in focusedGame" :key="game.id" icon="list-ol">
+                <FocusedTable expanders :focus="id" :game="game" />
+              </b-tab-item>
+            </b-tabs>
+          </span>
         </div>
       </div>
     </div>
-    <div class="tile is-ancestor">
-      <div class="tile is-6 is-parent">
+    <div class=" tile is-ancestor ">
+      <div class="tile is-6 is-parent ">
         <div class="tile is-child box notification is-primary ">
-          <Matches title="Last Matches" :contests="myProfile.contests" completed searchable :userId="id" />
+          <Matches title="Last Matches " :contests="profile.contests " completed searchable :userId="id " />
         </div>
       </div>
-      <div class="tile is-6 is-parent">
-        <div class="tile is-child box notification is-primary">
-          <Matches title="Upcoming" :contests="myProfile.contests" :userId="id" />
+      <div class="tile is-6 is-parent ">
+        <div class="tile is-child box notification is-primary ">
+          <Matches title="Upcoming " :contests="profile.contests " :userId="id " />
         </div>
       </div>
     </div>
@@ -36,12 +45,9 @@ import Stats from './stats/Stats';
 export default {
   name: 'dashboard',
   components: { Matches, Stats, FocusedTable },
-  data() {
-    return {
-    };
-  },
+  props: ['id', 'profile'],
   computed: {
-    ...mapGetters(['isLogged', 'avatar', 'username', 'id', 'myProfile']),
+    ...mapGetters(['isLogged']),
     focusedGame() {
       return R.pipe(
         R.filter(R.both(
@@ -49,8 +55,8 @@ export default {
           R.has('table'),
         )),
         R.values,
-        R.head,
-      )(this.myProfile.games || []);
+        R.take(2),
+      )(this.profile.games || []);
     },
   },
 };

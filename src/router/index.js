@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Dashboard from '@/components/dashboard/Dashboard';
+import DashboardView from '@/components/dashboard/DashboardView';
 import NotLogged from '@/components/auth/NotLogged';
 import About from '@/components/auth/About';
 import ClubsView from '@/components/clubs/View';
@@ -19,7 +19,7 @@ const router = new Router({
     },
     { path: '/notLogged', component: NotLogged },
     { path: '/about', component: About },
-    { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true } },
+    { path: '/dashboard', component: DashboardView, meta: { requiresAuth: true } },
     { path: '/clubs', component: ClubsView, meta: { requiresAuth: true } },
     ...games,
     ...auth,

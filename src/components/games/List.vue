@@ -16,7 +16,8 @@
             <span @click="leave(game)" class="is-clickable">
               <b-tag type="is-danger" v-if="isMember(game)">Member of</b-tag>
             </span>
-            <b-tag type="is-info" class="is-hidden-mobile">{{game.players.length}} players</b-tag>
+            <b-tag type="is-info">{{game.players.length}} players</b-tag>
+            <b-tag type="is-gold" v-if="game.ranked">RANKED</b-tag>
           </div>
         </div>
       </div>
@@ -97,7 +98,7 @@ export default {
     position: absolute;
     left: 1rem;
     right: 1rem;
-    bottom: 0.75rem;
+    bottom: 0.5rem;
   }
 }
 .card {

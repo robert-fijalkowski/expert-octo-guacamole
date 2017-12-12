@@ -2,7 +2,9 @@
   <div v-if="table && table.length > 0" class="in-table">
     <span v-if="title">
       <p class="title">{{title}}</p>
-      <p class="subtitle has-text-centered is-size-6">{{game.name}}</p>
+      <p class="subtitle has-text-centered is-size-6">
+        <router-link :to="`/games/${game.id}`">{{game.name}}</router-link>
+      </p>
     </span>
     <table class="table is-fullwidth is-stripped">
       <thead>
@@ -71,12 +73,12 @@ export default {
           R.ifElse(
             R.always(to === length || !this.expanders),
             R.identity,
-            n => n.concat({ aClass: 'empty-row', position: 'no-position', id: `${length - to} players more` }),
-          ),
-          R.ifElse(
-            R.always(from === 0 || !this.expanders),
-            R.identity,
-            n => [{ aClass: 'empty-row', position: 'no-position', id: `${from + 1} players more` }].concat(n),
+            (n) => {
+              if ((length - to) === 1) {
+                return n.concat(R.last(this.table)); // if only one left attach him, instead of naive empty-row
+              }
+              return n.concat({ aClass: 'empty-row', position: 'no-position', id: `${length - to} players more` });
+            },
           ),
           R.map((e) => {
             console.log(e);
