@@ -1,8 +1,8 @@
 <template>
   <div class="root">
     <div class="columns is-multiline">
-      <div class="column  is-6" v-for="game in games" :key="game.id">
-        <div class="notification">
+      <div class="column is-6" v-for="game in games" :key="game.id">
+        <div class="notification" @click="$router.push(`/games/${game.id}`)">
           <router-link :to="`/games/${game.id}`">
             <p class="title">{{game.name}}</p>
           </router-link>
@@ -99,6 +99,16 @@ export default {
     left: 1rem;
     right: 1rem;
     bottom: 0.5rem;
+  }
+}
+.notification {
+  max-height: 100%;
+  min-height: 15rem;
+
+  transition: background 0.3s ease;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(66, 66, 66, 0.3);
   }
 }
 .card {

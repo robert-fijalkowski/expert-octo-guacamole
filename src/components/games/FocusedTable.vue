@@ -81,7 +81,6 @@ export default {
             },
           ),
           R.map((e) => {
-            console.log(e);
             if (e.id === this.focus) {
               return { ...e, aClass: 'focused' };
             }

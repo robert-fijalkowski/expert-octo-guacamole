@@ -1,12 +1,14 @@
 <template>
-  <div>
+  <div class="root">
     <p class="title">Stats</p>
-    <div class="columns is-centered is-multiline is-mobile">
-      <StatsCircle text="W/D/L" :value="`${stats.wins}/${stats.draws}/${stats.loses}`" description="Wins / Draws / Loses" />
-      <StatsCircle text="GS/GC" :value="`${stats.scored}/${stats.lost}`" description="Goals scored / Goals conceded" />
-      <StatsCircle text="~GM" :value="average.scored" description="Average goals scored per match" />
-      <StatsCircle text="PL" :value="stats.played" description="Matches played" />
-      <StatsCircle text="WR" :value="`${(100*average.wins).toFixed(1)}%`" description="Win Rate" />
+    <div class="rest">
+      <div class="columns is-centered is-multiline is-mobile">
+        <StatsCircle text="W/D/L" :value="`${stats.wins}/${stats.draws}/${stats.loses}`" description="Wins / Draws / Loses" />
+        <StatsCircle text="GS/GC" :value="`${stats.scored}/${stats.lost}`" description="Goals scored / Goals conceded" />
+        <StatsCircle text="~GM" :value="average.scored" description="Average goals scored per match" />
+        <StatsCircle text="PL" :value="stats.played" description="Matches played" />
+        <StatsCircle text="WR" :value="`${(100*average.wins).toFixed(1)}%`" description="Win Rate" />
+      </div>
     </div>
   </div>
 </template>
@@ -72,6 +74,15 @@ export default {
   font-size: 200%;
   font-weight: bold;
   font-family: "Montserrat";
+}
+.rest {
+  height: calc(100% + -4rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.root {
+  height: 100%;
 }
 </style>
 
