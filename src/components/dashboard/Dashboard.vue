@@ -1,9 +1,18 @@
 <template>
   <div v-if="isLogged" class="root">
     <div class="tile is-ancestor">
+      <div class="tile is-12 is-parent">
+        <div class="tile is-child box notification is-primary">
+          <p v-if="loggedId === id" class="title">Your's dashboard</p>
+          <p v-else class="title">{{profile.meta.name}}'s dashboard</p>
+        </div>
+      </div>
+    </div>
+    <div class="tile is-ancestor">
       <div class="tile is-parent" :class="focusedGame ? 'is-6' : 'is-12'">
         <div class="tile is-child box notification is-primary">
-          <Stats :games="profile.games" :userId="id" /> </div>
+          <Stats :games="profile.games" :userId="id" />
+        </div>
       </div>
       <div class="tile is-parent is-6" v-if="focusedGame.length > 0">
         <div class="tile is-child box notification is-primary">
@@ -47,7 +56,7 @@ export default {
   components: { Matches, Stats, FocusedTable },
   props: ['id', 'profile'],
   computed: {
-    ...mapGetters(['isLogged']),
+    ...mapGetters({ isLogged: 'isLogged', loggedId: 'id' }),
     focusedGame() {
       return R.pipe(
         R.filter(R.both(
