@@ -28,6 +28,7 @@ $colors: (
   "light": ($light, $light-invert),
   "dark": ($dark, $dark-invert),
   "primary": ($primary, darken($primary-invert, 15%)),
+  "primary-1":($primary-1, $primary-1-invert),
   "primary-2":($primary-2, $primary-2-invert),
   "primary-3":($primary-3, $primary-3-invert),
   "info": ($info, $info-invert),

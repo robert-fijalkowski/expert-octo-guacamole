@@ -10,7 +10,7 @@
     <footer class="modal-card-foot">
       <button class="button is-danger" type="button" @click="$parent.close(false)">Abandon</button>
       <button class="button is-warning is-pulled-right" @click="join" v-if="club">
-        Join as {{club.name}}
+        Join as {{ club.name }}
       </button>
     </footer>
   </div>

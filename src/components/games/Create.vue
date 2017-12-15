@@ -15,7 +15,7 @@
       </b-field>
 
       <b-field horizontal label="Description">
-        <b-input v-model="description" type="textarea"></b-input>
+        <b-input v-model="newGame.description" type="textarea"></b-input>
       </b-field>
 
       <b-field horizontal label="">

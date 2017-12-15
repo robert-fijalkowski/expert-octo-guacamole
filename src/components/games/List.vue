@@ -7,14 +7,15 @@
             <p class="title">{{game.name}}</p>
           </router-link>
           <p class="subtitle has-text-centered is-size-6">{{game.location}}</p>
+          <p>{{game.description}}</p>
           <FocusedTable :game="game" />
           <div class="floating-tag">
             <b-tag type="is-primary">{{game.status}}</b-tag>
-            <router-link :to="`/games/join?game=${game.id}`">
-              <b-tag type="is-warning" v-if="game.status === 'OPEN' && !isMember(game)">JOIN</b-tag>
-            </router-link>
-            <span @click="leave(game)" class="is-clickable">
-              <b-tag type="is-danger" v-if="isMember(game)">Member of</b-tag>
+            <span @click.stop="$router.push(`/games/join?game=${game.id}`)" class="is-clickable" v-if="game.status === 'OPEN' && !isMember(game)">
+              <b-tag type="is-warning">JOIN</b-tag>
+            </span>
+            <span @click.stop="leave(game)" class="is-clickable" v-if="isMember(game)">
+              <b-tag type="is-danger">Member of</b-tag>
             </span>
             <b-tag type="is-info">{{game.players.length}} players</b-tag>
             <b-tag type="is-gold" v-if="game.ranked">RANKED</b-tag>

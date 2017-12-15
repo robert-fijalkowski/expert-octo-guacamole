@@ -1,7 +1,8 @@
 <template>
   <div class="modal-card notification">
     <header class="modal-card-head">
-      <p class="title is-centered">Score</p>
+      <p class="title is-centered is-size-4">Score</p>
+      <p class="subtitle is-centered is-size-5">{{ match.gid.name }}</p>
     </header>
     <section class="modal-card-body is-primary">
       <div class="columns">
@@ -13,17 +14,23 @@
         <div class="column is-1 is-size-1 has-text-weight-bold has-text-centered score-separator">
           :
         </div>
-        <div class="column has-text-centered score-input">
+        <div class="column has-text-centered score-input" v-if="!isMobile">
           <div class="title is-size-5 has-text-centered">{{match.visitor.user.name}}</div>
           <div class="subtitle is-size-6">{{match.visitor.club.name}}</div>
           <ScoreInput :initScore="score.visitor" @score="v => {score.visitor=v}" @isValid="v=> {valid.visitor = v}" />
+        </div>
+        <div class="column has-text-centered score-input" v-else>
+          <ScoreInput :initScore="score.visitor" @score="v => {score.visitor=v}" @isValid="v=> {valid.visitor = v}" />
+          <div class="subtitle is-size-6">{{match.visitor.club.name}}</div>
+          <div class="title is-size-5 has-text-centered">{{match.visitor.user.name}}</div>
         </div>
       </div>
       <p class="help is-warning has-text-centered" v-if="!isValid">How many goals you shot?</p>
     </section>
     <footer class="modal-card-foot">
       <button class="button is-danger" @click="$parent.close(false)">Close</button>
-      <button class="button is-success is-pulled-right" v-if="isChangeable && isValid" @click="submitScore()">Submit</button>
+      <button class="button is-success is-pulled-right" v-if="isChangeable && isValid" @click="submit()">Submit</button>
+      <button class="button is-warning is-pulled-right" v-if="isChangeable && isPlayed" @click="reject()">Reject</button>
     </footer>
   </div>
 </template> 
@@ -53,20 +60,29 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isAdmin']),
+    ...mapGetters(['isAdmin', 'isMobile']),
     isValid() {
       return this.valid.home && this.valid.visitor;
     },
-    isChangeable() {
-      return this.match.status !== 'PLAYED' || this.isAdmin;
-    },
+    isChangeable() { return !this.isPlayed || this.isAdmin; },
+    isPlayed() { return this.match.status !== 'SCHEDULED'; },
   },
   methods: {
-    submitScore() {
-      this.$api('POST', `games/${this.match.gid.id}/schedule/${this.match.id}`, { result: this.score, status: 'PLAYED' })
-        .then((match) => {
-          this.$toast.open({ type: 'is-success', message: `Successfuly submited to ${match.name}` });
-          this.$emit('submitted');
+    submit() {
+      this.$api(this.isPlayed ? 'PUT' : 'POST', `games/${this.match.gid.id}/schedule/${this.match.id}`, { result: this.score, status: 'PLAYED' })
+        .then((game) => {
+          this.$toast.open({ type: 'is-success', message: `Successfuly submited to ${game.name}` });
+          this.$emit('apply', game);
+        })
+        .catch((err) => {
+          this.$toast.open({ type: 'is-danger', message: err.response.text });
+        });
+    },
+    reject() {
+      this.$api('DELETE', `games/${this.match.gid.id}/schedule/${this.match.id}`)
+        .then((game) => {
+          this.$toast.open({ type: 'is-success', message: `Rejected match in ${game.name}` });
+          this.$emit('apply', game);
         })
         .catch((err) => {
           this.$toast.open({ type: 'is-danger', message: err.response.text });
@@ -96,19 +112,17 @@ export default {
 }
 .score-input {
   .field {
-    width: 100px;
     display: inline-block;
     .control {
       input {
         border: 0 none;
         background: $primary;
         color: $primary-invert;
-        margin-right: 2.25rem;
         padding-right: $control-padding-horizontal;
         text-align: center;
       }
       .icon {
-        right: -2.25rem;
+        left: -1.25rem;
       }
     }
   }

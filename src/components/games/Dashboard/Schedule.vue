@@ -23,26 +23,24 @@
       </div>
     </div>
     <div>
-      <div v-for=" match in filteredSchedule " :key="match.id ">
+      <div v-for="match in filteredSchedule " :key="match.id">
         <div class="columns notification results is-primary ">
           <div class="edit button is-primary is-small " v-if="match.result ">
             <b-icon icon="edit " />
           </div>
           <div class="edit button is-primary-2 is-small " v-else>
-            <b-icon icon="plus " />
+            <b-icon icon="plus" />
           </div>
           <div class="column is-5 has-text-centered ">
             <div class="title ">{{user(match.home).name}}</div>
             <div class="subtitle ">{{club(match.home).name}}</div>
           </div>
           <div class="column is-2 " v-if="match.result ">
-            <div class="columns ">
-              <div class="column is-4 is-size-3 has-text-weight-bold has-text-centered ">{{match.result.home}}</div>
-              <div class="column is-4 has-text-centered ">
-                vs
-              </div>
-              <div class="column is-4 is-size-3 has-text-weight-bold has-text-centered ">{{match.result.visitor}}</div>
+            {{match.result.home}}
+            <div class="column is-4 has-text-centered ">
+              vs
             </div>
+            <div class="column is-4 is-size-3 has-text-weight-bold has-text-centered ">{{match.result.visitor}}</div>
           </div>
           <div class="column is-2 has-text-centered " v-else>
             <div class="title is-size-7 ">vs</div>

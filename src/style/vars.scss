@@ -6,6 +6,8 @@ $twitter-invert: findColorInvert($twitter);
 $background: #0c0c0c;
 $navBarEnd: mix($primary, $background, 75%);
 $navBarSize: 3rem;
+$primary-1: lighten($primary, 6%);
+$primary-1-invert: findColorInvert($primary-1);
 
 $primary-2: lighten($primary, 27%);
 $primary-2-invert: findColorInvert($primary-2);
@@ -14,4 +16,4 @@ $primary-3: lighten($primary, 40%);
 $primary-3-invert: findColorInvert($primary-3);
 
 $odd: lighten($primary, 3%);
-$even: lighten($primary, 6%);
+$even: $primary-1;

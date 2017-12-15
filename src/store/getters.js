@@ -9,6 +9,7 @@ export default {
   myProfile: state => state.myProfile,
   menuVisible: state => state.menuVisible,
   busy: state => state.busy,
+  isMobile: state => state.mobileView,
   notLoggedCause: state => state.notLoggedCause,
   username: (state, getters) => {
     const { profile } = getters;

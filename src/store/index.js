@@ -23,5 +23,7 @@ const store = new Vuex.Store({
 });
 
 setImmediate(() => store.dispatch('loadLocalStorage'));
+window.onresize = () => store.dispatch('size', window.innerWidth);
+store.dispatch('size', window.innerWidth);
 
 export default store;

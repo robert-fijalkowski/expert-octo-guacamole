@@ -10,6 +10,9 @@
       <b-tab-item label="Schedule" v-if="game.status !== 'OPEN'" icon="calendar">
         <Schedule :game="game" />
       </b-tab-item>
+      <b-tab-item label="Settings" v-if="isAdmin" icon="cog">
+        <Schedule :game="game" />
+      </b-tab-item>
     </b-tabs>
   </div>
 </template>

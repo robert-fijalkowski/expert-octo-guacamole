@@ -41,4 +41,7 @@ export default {
   [types.LOADED](state) {
     state.busy = false;
   },
+  [types.IS_MOBILE](state, is) {
+    state.mobileView = is;
+  },
 };

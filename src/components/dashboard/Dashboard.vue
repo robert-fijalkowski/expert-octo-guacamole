@@ -3,7 +3,7 @@
     <div class="tile is-ancestor">
       <div class="tile is-12 is-parent">
         <div class="tile is-child box notification is-primary">
-          <p v-if="loggedId === id" class="title">Your's dashboard</p>
+          <p v-if="loggedId === id" class="title">Your dashboard</p>
           <p v-else class="title">{{profile.meta.name}}'s dashboard</p>
         </div>
       </div>
@@ -29,15 +29,15 @@
         </div>
       </div>
     </div>
-    <div class=" tile is-ancestor ">
+    <div class="tile is-ancestor">
       <div class="tile is-6 is-parent ">
-        <div class="tile is-child box notification is-primary ">
-          <Matches title="Last Matches " :contests="profile.contests " completed searchable :userId="id " />
+        <div class="tile is-child box notification is-primary">
+          <Matches title="Last Matches " :contests="profile.contests " @refresh="$emit('refresh')" completed searchable :userId="id " />
         </div>
       </div>
       <div class="tile is-6 is-parent ">
-        <div class="tile is-child box notification is-primary ">
-          <Matches title="Upcoming " :contests="profile.contests " :userId="id " />
+        <div class="tile is-child box notification is-primary">
+          <Matches title="Upcoming " :contests="profile.contests " :userId="id" @refresh="$emit('refresh')" />
         </div>
       </div>
     </div>

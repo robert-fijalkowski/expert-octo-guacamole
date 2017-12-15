@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Dashboard :id="id" :profile="profile" v-if="profile" />
+    <Dashboard :id="id" :profile="profile" v-if="profile" @refresh="load()" />
   </div>
 </template>
 
@@ -15,14 +15,19 @@ export default {
   props: ['id'],
   data() {
     return {
-      profile: {},
+      profile: false,
     };
   },
   computed: {
     ...mapGetters(['isAdmin']),
   },
+  methods: {
+    load() {
+      this.$api('GET', `/users/${this.id}`).then((profile) => { this.profile = profile; });
+    },
+  },
   mounted() {
-    this.$api('GET', `/users/${this.id}`).then((profile) => { this.profile = profile; });
+    this.load();
   },
 };
 </script>

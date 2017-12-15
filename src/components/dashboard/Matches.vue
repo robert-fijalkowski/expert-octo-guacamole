@@ -1,32 +1,35 @@
 <template>
   <div class="root">
-    <p class="title">{{title}}</p>
-    <div v-for="(match,index) in relatedMatches" :key="match.id">
-      <div class="columns notification results">
-        <div class="column is-5 has-text-centered">
-          <div class="title">{{match.home.user.name}}</div>
-          <div class="subtitle is-size-6">{{match.home.club.name}}</div>
-        </div>
-        <div class="column is-2" v-if="match.result">
-          <div class="is-size-4 has-text-weight-bold has-text-centered" @click="modalScore(match)">
-            {{match.result.home}}&nbsp;:&nbsp;{{match.result.visitor}}
+    <div v-if="relatedMatches.length">
+      <div v-for="(match, index) in relatedMatches" :key="match.id" @click="modalScore(match)">
+        <div class="columns notification results is-primary-1">
+          <div class="column is-5 has-text-centered">
+            <div class="title">{{match.home.user.name}}</div>
+            <div class="subtitle is-size-6">{{match.home.club.name}}</div>
           </div>
-        </div>
-        <div class="column is-2 has-text-centered" v-else>
-          <div class="button is-primary-2 is-small" @click="modalScore(match)">
-            <b-icon icon="plus" />
+          <div class="column is-2" v-if="match.result">
+            <div class="is-size-4 has-text-weight-bold has-text-centered">
+              {{match.result.home}}&nbsp;:&nbsp;{{match.result.visitor}}
+            </div>
           </div>
-          <div class="title is-size-7 versus">vs</div>
-        </div>
-        <div class="column is-5 has-text-centered">
-          <div class="title">{{match.visitor.user.name}}</div>
-          <div class="subtitle is-size-6">{{match.visitor.club.name}}</div>
+          <div class="column is-2 has-text-centered" v-else>
+            <div class="button is-primary-2 is-small">
+              <b-icon icon="plus" />
+            </div>
+          </div>
+          <div class="column is-5 has-text-centered">
+            <div class="title">{{match.visitor.user.name}}</div>
+            <div class="subtitle is-size-6">{{match.visitor.club.name}}</div>
+          </div>
         </div>
       </div>
+      <b-modal :active.sync="isSubmitActive" has-modal-card :canCancel="true">
+        <ModalScore :match="selectedMatch" @apply="game => handle('apply', game)" />
+      </b-modal>
     </div>
-    <b-modal :active.sync="isSubmitActive" has-modal-card :canCancel="true">
-      <ModalScore :match="selectedMatch" @submitted="(d) => handle('submitted')" />
-    </b-modal>
+    <div v-else class="has-text-centered">
+      <p style="subtitle">No matches</p>
+    </div>
   </div>
 </template>
 
@@ -73,14 +76,14 @@ export default {
       this.selectedMatch = { ...data };
       this.isSubmitActive = true;
     },
-    handle(action) {
+    handle(action, data) {
       switch (action) {
-        case 'submitted':
+        case 'apply':
           this.isSubmitActive = false;
-          // refresh profile
+          this.$emit('updateGame', data);
+          this.$emit('refresh');
           return true;
         default:
-          console.log('action', action);
           return true;
       }
     },
@@ -100,6 +103,12 @@ export default {
     right: 0.25rem;
     top: 0.25rem;
   }
+}
+.add-result {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
 }
 .versus {
   margin-top: 0.25rem;

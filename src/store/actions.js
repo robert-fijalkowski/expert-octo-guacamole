@@ -26,6 +26,7 @@ const decodeToken = (token, { commit, state }) => {
 };
 
 export default {
+  refreshProfile,
   login({ commit, state }, token) {
     window.localStorage.setItem('TOKEN', token);
     decodeToken(token, { commit, state });
@@ -54,6 +55,9 @@ export default {
   logout({ commit }) {
     window.localStorage.removeItem('TOKEN');
     commit(types.CLEAR_JWT_TOKEN);
+  },
+  size({ commit }, width) {
+    commit(types.IS_MOBILE, width <= 768);
   },
   ...refreshProfile,
 };
