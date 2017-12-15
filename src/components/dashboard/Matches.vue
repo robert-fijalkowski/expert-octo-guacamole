@@ -3,20 +3,17 @@
     <p class="title">{{title}}</p>
     <div v-for="(match,index) in relatedMatches" :key="match.id">
       <div class="columns notification results">
-        <div class="edit button is-primary is-small" v-if="match.result">
-          <b-icon icon="edit" />
-        </div>
         <div class="column is-5 has-text-centered">
           <div class="title">{{match.home.user.name}}</div>
           <div class="subtitle is-size-6">{{match.home.club.name}}</div>
         </div>
         <div class="column is-2" v-if="match.result">
-          <div class="is-size-4 has-text-weight-bold has-text-centered">
+          <div class="is-size-4 has-text-weight-bold has-text-centered" @click="modalScore(match)">
             {{match.result.home}}&nbsp;:&nbsp;{{match.result.visitor}}
           </div>
         </div>
         <div class="column is-2 has-text-centered" v-else>
-          <div class="button is-primary-2 is-small">
+          <div class="button is-primary-2 is-small" @click="modalScore(match)">
             <b-icon icon="plus" />
           </div>
           <div class="title is-size-7 versus">vs</div>
@@ -27,18 +24,31 @@
         </div>
       </div>
     </div>
+    <b-modal :active.sync="isSubmitActive" has-modal-card :canCancel="true">
+      <ModalScore :match="selectedMatch" @submitted="(d) => handle('submitted')" />
+    </b-modal>
   </div>
 </template>
 
 <script>
 import * as R from 'ramda';
+import ModalScore from './ModalScore';
 
 export default {
+  components: { ModalScore },
+  data() {
+    return {
+      game: null,
+      selectedMatch: null,
+      isSubmitActive: false,
+    };
+  },
   props: {
     contests: {
       type: Array,
       default: () => [],
     },
+    gameId: String,
     userId: String,
     title: String,
     completed: { type: Boolean, default: false },
@@ -51,12 +61,30 @@ export default {
       return R.pipe(
         filterBy(R.propEq('status', 'SCHEDULED')),
         R.sortWith([
-          R.descend(R.pipe(R.prop('updated'), d => new Date(d).getTime()))]),
+          R.descend(R.pipe(R.prop('updated'), d => new Date(d).getTime())),
+        ]),
         R.take(this.size),
       )(this.contests);
     },
   },
   name: 'matches',
+  methods: {
+    modalScore(data) {
+      this.selectedMatch = { ...data };
+      this.isSubmitActive = true;
+    },
+    handle(action) {
+      switch (action) {
+        case 'submitted':
+          this.isSubmitActive = false;
+          // refresh profile
+          return true;
+        default:
+          console.log('action', action);
+          return true;
+      }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

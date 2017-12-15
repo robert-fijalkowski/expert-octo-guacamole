@@ -17,6 +17,7 @@ const webpackConfig = require('./webpack.dev.conf')
 const port = process.env.PORT || config.dev.port
 // automatically open browser, if not set will be false
 const autoOpenBrowser = !!config.dev.autoOpenBrowser
+const browserApp = config.dev.browserApp || null
 // Define HTTP proxies to your custom API backend
 // https://github.com/chimurai/http-proxy-middleware
 const proxyTable = config.dev.proxyTable
@@ -85,12 +86,10 @@ devMiddleware.waitUntilValid(() => {
     if (err) {
       _reject(err)
     }
-    process.env.PORT = port
-    var uri = 'http://localhost:' + port
     console.log('> Listening at ' + uri + '\n')
     // when env is testing, don't need open it
     if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
-      opn(uri)
+      opn(uri, {app: browserApp})
     }
     server = app.listen(port)
     _resolve()
