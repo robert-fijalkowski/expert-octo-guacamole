@@ -8,10 +8,10 @@
         {{game.competitors}}
       </b-tab-item>
       <b-tab-item label="Schedule" v-if="game.status !== 'OPEN'" icon="calendar">
-        <Schedule :game="game" />
+        <Schedule :game="game" @updated="(game) => $emit('updated',game)" />
       </b-tab-item>
       <b-tab-item label="Settings" v-if="isAdmin" icon="cog">
-        <Schedule :game="game" />
+        Technical Endpoint for future
       </b-tab-item>
     </b-tabs>
   </div>
@@ -31,6 +31,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-
-</style>

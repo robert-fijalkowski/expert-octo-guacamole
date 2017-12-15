@@ -22,44 +22,17 @@
         </b-checkbox>
       </div>
     </div>
-    <div>
-      <div v-for="match in filteredSchedule " :key="match.id">
-        <div class="columns notification results is-primary ">
-          <div class="edit button is-primary is-small " v-if="match.result ">
-            <b-icon icon="edit " />
-          </div>
-          <div class="edit button is-primary-2 is-small " v-else>
-            <b-icon icon="plus" />
-          </div>
-          <div class="column is-5 has-text-centered ">
-            <div class="title ">{{user(match.home).name}}</div>
-            <div class="subtitle ">{{club(match.home).name}}</div>
-          </div>
-          <div class="column is-2 " v-if="match.result ">
-            {{match.result.home}}
-            <div class="column is-4 has-text-centered ">
-              vs
-            </div>
-            <div class="column is-4 is-size-3 has-text-weight-bold has-text-centered ">{{match.result.visitor}}</div>
-          </div>
-          <div class="column is-2 has-text-centered " v-else>
-            <div class="title is-size-7 ">vs</div>
-          </div>
-          <div class="column is-5 has-text-centered ">
-            <div class="title ">{{user(match.visitor).name}}</div>
-            <div class="subtitle ">{{club(match.visitor).name}}</div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Matches noFilter :contests="filteredSchedule" searchable :size="filteredSchedule.length" @updateGame="(game) => $emit('updated', game)" />
   </div>
 </template>
 <script>
 import * as R from 'ramda';
 import { mapGetters } from 'vuex';
+import Matches from '../../dashboard/Matches';
 
 export default {
   name: 'game-schedule',
+  components: { Matches },
   props: { game: { type: Object, required: true } },
   data() {
     return { checkboxGroup: ['SCHEDULED'], onlyMy: false };
@@ -88,6 +61,12 @@ export default {
           R.descend(R.pipe(R.prop('updated'), d => new Date(d).getTime())),
           R.ascend(R.prop('id')),
         ]),
+        R.map(contest => ({
+          ...contest,
+          gid: this.game,
+          home: { club: this.club(contest.home), user: this.user(contest.home) },
+          visitor: { club: this.club(contest.visitor), user: this.user(contest.visitor) },
+        })),
       )(this.game.schedule);
     },
   },

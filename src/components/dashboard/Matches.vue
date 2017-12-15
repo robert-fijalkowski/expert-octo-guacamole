@@ -1,5 +1,12 @@
 <template>
   <div class="root">
+    <p class="title" v-if="title">{{title}}</p>
+    <div v-if="searchable">
+      <b-field grouped>
+        <b-input expanded v-model="phrase" placeholder="Search for match..." type="search" icon-pack="fa" icon="search">
+        </b-input>
+      </b-field>
+    </div>
     <div v-if="relatedMatches.length">
       <div v-for="(match, index) in relatedMatches" :key="match.id" @click="modalScore(match)">
         <div class="columns notification results is-primary-1">
@@ -44,6 +51,7 @@ export default {
       game: null,
       selectedMatch: null,
       isSubmitActive: false,
+      phrase: '',
     };
   },
   props: {
@@ -51,23 +59,47 @@ export default {
       type: Array,
       default: () => [],
     },
-    gameId: String,
-    userId: String,
     title: String,
     completed: { type: Boolean, default: false },
+    noFilter: { type: Boolean, default: false },
     searchable: { type: Boolean, default: false },
     size: { type: Number, default: 5 },
   },
   computed: {
     relatedMatches() {
       const filterBy = this.completed ? R.reject : R.filter;
+      const ifFilter = this.noFilter ? (() => R.identity) : filterBy;
       return R.pipe(
-        filterBy(R.propEq('status', 'SCHEDULED')),
+        ifFilter(R.propEq('status', 'SCHEDULED')),
+        this.search(),
         R.sortWith([
           R.descend(R.pipe(R.prop('updated'), d => new Date(d).getTime())),
         ]),
         R.take(this.size),
       )(this.contests);
+    },
+    lPhrase() { return this.phrase.toLocaleLowerCase().split(' ').filter(R.identity); },
+    search() {
+      if (!this.searchable || !this.phrase) {
+        return R.identity;
+      }
+      const constructPhrases = R.pipe(
+        R.xprod(this.lPhrase),
+        R.map(([needle, haystack]) => (haystack.indexOf(needle) !== -1) * 1), // TODO: improve it
+        R.sum,
+        Boolean,
+      );
+      const prepareCompetitors = R.pipe(
+        R.map(R.pick(['club', 'user'])),
+        R.map(R.pluck('name')),
+        R.map(R.values),
+        R.flatten,
+        R.map(part => part.toLocaleLowerCase()),
+      );
+      return R.pipe(R.filter(({ home, visitor }) => R.pipe(
+        prepareCompetitors,
+        constructPhrases,
+      )([home, visitor])));
     },
   },
   name: 'matches',

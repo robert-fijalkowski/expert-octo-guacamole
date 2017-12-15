@@ -3,12 +3,14 @@
     <b-table :data="game.table" striped :row-class="rowClass">
       <template slot-scope="props">
         <b-table-column label="P" width="1" numeric>
-          {{ props.row.position }}
+          <span v-if="(props.index + 1) === props.row.position">
+            {{ props.row.position }}.
+          </span>
         </b-table-column>
         <b-table-column label="Player">
           <router-link :to="`/users/${props.row.id}`"> {{user(props.row.id).name}}</router-link>
         </b-table-column>
-        <b-table-column label="PL" width=1 centered>{{props.row.played}}</b-table-column>
+        <b-table-column label="PL" width=1 centered> {{props.row.played}}</b-table-column>
         <b-table-column label="W" class="is-hidden-mobile" width=1 centered numeric>{{props.row.wins}}</b-table-column>
         <b-table-column label="D" class="is-hidden-mobile" width=1 centered numeric>{{props.row.draws}}</b-table-column>
         <b-table-column label="L" class="is-hidden-mobile" width=1 centered numeric>{{props.row.loses}}</b-table-column>

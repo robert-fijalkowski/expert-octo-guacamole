@@ -32,7 +32,7 @@
     <div class="tile is-ancestor">
       <div class="tile is-6 is-parent ">
         <div class="tile is-child box notification is-primary">
-          <Matches title="Last Matches " :contests="profile.contests " @refresh="$emit('refresh')" completed searchable :userId="id " />
+          <Matches title="Last Matches " :contests="profile.contests " @refresh="$emit('refresh')" completed :userId="id" />
         </div>
       </div>
       <div class="tile is-6 is-parent ">
