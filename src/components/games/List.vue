@@ -84,7 +84,7 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     const callback = R.cond([
-      [R.has('game'), R.always((vm) => { vm.setModalVisible(true); })],
+      [R.both(R.has('game'), () => to.fullPath.indexOf('join?game=') !== -1), R.always((vm) => { vm.setModalVisible(true); })],
       [R.T, R.always((vm) => { vm.setModalVisible(false); })],
     ])(to.query);
     next(callback);

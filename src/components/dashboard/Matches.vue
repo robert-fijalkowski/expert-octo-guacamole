@@ -20,9 +20,11 @@
             </div>
           </div>
           <div class="column is-2 has-text-centered" v-else>
-            <div class="button is-primary-2 is-small">
-              <b-icon icon="plus" />
-            </div>
+            <b-tooltip :label="match.gid.name">
+              <div class="button is-primary-2 is-small">
+                <b-icon icon="plus" />
+              </div>
+            </b-tooltip>
           </div>
           <div class="column is-5 has-text-centered">
             <div class="title">{{match.visitor.user.name}}</div>
