@@ -63,7 +63,7 @@ export default {
     progress() {
       const matches = R.values(this.game.schedule);
       const total = matches.length;
-      const played = R.filter(R.complement(R.propEq('status', 'SCHEDULED'))).length;
+      const played = R.filter(R.complement(R.propEq('status', 'SCHEDULED')), matches).length;
       return { total, played, percent: Math.round(100 * (played / total)) };
     },
   },
