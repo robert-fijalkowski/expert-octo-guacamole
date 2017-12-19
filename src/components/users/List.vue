@@ -27,8 +27,11 @@
                   <span>{{previousLevel(access)}}</span>
                 </button>
               </div>
-              <div v-else>
+              <div v-else-if="isAdmin">
                 You cannot modify yourself access level.
+              </div>
+              <div v-else>
+
               </div>
             </div>
           </div>

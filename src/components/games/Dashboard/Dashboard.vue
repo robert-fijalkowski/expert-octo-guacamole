@@ -3,7 +3,7 @@
     <Navigation :game="game" @action="handle" :from="from" />
     <Tabs :game="game" @action="handle" @updated="(d) => handle('updated',d)" />
     <b-modal :active.sync="modals.join" has-modal-card :canCancel="true">
-      <Join :fullGame="game" @joined="(d) => handle('joined', d)" />
+      <Join :fullGame="game" @joined="(d) => handle('joined', d)" :id="id" />
     </b-modal>
     <b-modal :active.sync="modals.start" has-modal-card :canCancel="true">
       <Start :game="game" @started="(d) => handle('started', d)" />

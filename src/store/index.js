@@ -16,6 +16,7 @@ const store = new Vuex.Store({
     myProfile: {},
     notLoggedCause: null,
     busy: false,
+    mobileView: false,
   },
   actions,
   mutations,

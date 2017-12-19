@@ -31,8 +31,8 @@ export default {
     window.localStorage.setItem('TOKEN', token);
     decodeToken(token, { commit, state });
   },
-  hideMenu({ commit }) {
-    commit(types.HIDE_MENU);
+  hideMenu({ commit, state }) {
+    if (state.menuVisible) { commit(types.HIDE_MENU); }
   },
   isLoading({ commit }) {
     commit(types.IS_LOADING);

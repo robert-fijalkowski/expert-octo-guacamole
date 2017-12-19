@@ -23,7 +23,7 @@ import Search from '@/components/clubs/Search';
 export default {
   components: { Search },
   name: 'modal-join',
-  props: ['gameId', 'fullGame'],
+  props: ['gameId', 'fullGame', 'id'],
   data() {
     return { game: {}, club: null };
   },
@@ -35,10 +35,9 @@ export default {
         .then((game) => { this.game = game; });
     }
   },
-  computed: { ...mapGetters({ uid: 'id' }) },
   methods: {
     join() {
-      this.$api('POST', `games/${this.game.id}/competitors`, { uid: this.uid, club: this.club.id })
+      this.$api('POST', `games/${this.game.id}/competitors`, { uid: this.id, club: this.club.id })
         .then((game) => {
           this.$toast.open({ type: 'is-success', message: `Successfuly joined to ${game.name} as ${this.club.name}` });
           this.$emit('joined', game);

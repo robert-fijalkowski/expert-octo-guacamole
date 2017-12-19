@@ -53,6 +53,7 @@ export default {
       this.$api('POST', '/games', this.newGame)
         .then((game) => {
           this.$toast.open({ type: 'is-success', message: `created game with id ${game.id}` });
+          this.$router.push(`/games/${game.id}`);
         }).catch((err) => {
           this.$toast.open({ type: 'is-danger', message: err.response.text });
         });

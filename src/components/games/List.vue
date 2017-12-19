@@ -24,7 +24,7 @@
       </div>
       <b-modal :active.sync="isJoinActive " :canCancel="false" has-modal-card @close="restore">
         <div class="card">
-          <Join :gameId="gameId" @joined="whenJoined" />
+          <Join :gameId="gameId" @joined="whenJoined" :id="id" />
         </div>
       </b-modal>
     </div>
@@ -93,19 +93,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../style/vars.scss";
+
 .column {
   position: relative;
   .floating-tag {
     position: absolute;
-    left: 1rem;
-    right: 1rem;
+    left: 0.5rem;
+    right: 0.5rem;
     bottom: 0.5rem;
   }
 }
 .notification {
   max-height: 100%;
   min-height: 15rem;
-
+  box-shadow: 0px 0px 20px transparentize($primary, 0.3);
   transition: background 0.3s ease;
   cursor: pointer;
   &:hover {

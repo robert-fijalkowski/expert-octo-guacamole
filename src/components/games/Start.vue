@@ -22,15 +22,12 @@
 </template> 
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
   name: 'modal-start',
   props: ['game'],
   data() {
     return { game: {} };
   },
-  computed: { ...mapGetters({ uid: 'id' }) },
   methods: {
     start() {
       this.$api('POST', `games/${this.game.id}/schedule`)

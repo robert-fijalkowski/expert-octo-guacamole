@@ -20,11 +20,19 @@
             </div>
           </div>
           <div class="column is-2 has-text-centered" v-else>
-            <b-tooltip :label="match.gid.name">
+            <span v-if="isMobile">
               <div class="button is-primary-2 is-small">
                 <b-icon icon="plus" />
               </div>
-            </b-tooltip>
+            </span>
+            <span v-else>
+              <b-tooltip :label="match.gid.name">
+                <div class="button is-primary-2 is-small">
+                  <b-icon icon="plus" />
+                </div>
+              </b-tooltip>
+            </span>
+
           </div>
           <div class="column is-5 has-text-centered">
             <div class="title">{{match.visitor.user.name}}</div>
@@ -44,6 +52,7 @@
 
 <script>
 import * as R from 'ramda';
+import { mapGetters } from 'vuex';
 import ModalScore from './ModalScore';
 
 export default {
@@ -68,6 +77,7 @@ export default {
     size: { type: Number, default: 5 },
   },
   computed: {
+    ...mapGetters(['isMobile']),
     relatedMatches() {
       const filterBy = this.completed ? R.reject : R.filter;
       const ifFilter = this.noFilter ? (() => R.identity) : filterBy;

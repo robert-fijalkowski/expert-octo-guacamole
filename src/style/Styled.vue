@@ -74,7 +74,7 @@ html {
 }
 $border: lighten($even, 15%);
 .in-table {
-  padding: 0.5rem;
+  padding: 0.5rem 0rem;
 }
 .b-tabs .tab-content {
   padding: 0;

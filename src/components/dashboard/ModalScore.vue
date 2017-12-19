@@ -12,7 +12,7 @@
           <ScoreInput :initScore="score.home" @score="v => {score.home=v}" @isValid="v=> {valid.home = v}" />
         </div>
         <div class="column is-1 is-size-1 has-text-weight-bold has-text-centered score-separator">
-          :
+          {{ isMobile ? 'vs' : ':'}}
         </div>
         <div class="column has-text-centered score-input" v-if="!isMobile">
           <div class="title is-size-5 has-text-centered">{{match.visitor.user.name}}</div>
