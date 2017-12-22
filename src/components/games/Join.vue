@@ -32,13 +32,13 @@ export default {
   data() {
     return { game: {}, club: this.change };
   },
-  computed:{
-    title(){
+  computed: {
+    title() {
       return this.change ? 'Change team' : 'Join to game';
     },
-    action(){
+    action() {
       return this.change ? 'Change to' : 'Join as';
-    }
+    },
   },
   created() {
     if (this.fullGame) {

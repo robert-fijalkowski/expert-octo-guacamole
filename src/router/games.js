@@ -12,4 +12,10 @@ export default [
     meta: { requiresAuth: true },
     props: true,
   },
+  {
+    path: '/games/:gameId/join',
+    component: Dashboard,
+    meta: { requiresAuth: true },
+    props: true,
+  },
 ];

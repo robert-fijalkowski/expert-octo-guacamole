@@ -20,7 +20,7 @@
           <b-icon icon="sign-out"></b-icon>
           <span>Left</span>
         </a>
-        <a class="button is-primary" v-if="isAdmin && isOngoing">
+        <a class="button is-primary" @click="$emit('action','complete')" v-if="isAdmin && isOngoing">
           <b-icon icon="check"></b-icon>
           <span>Complete</span>
         </a>

@@ -30,6 +30,7 @@
     <footer class="modal-card-foot">
       <button class="button is-danger" @click="$parent.close(false)">Close</button>
       <button class="button is-success is-pulled-right" v-if="isChangeable && isValid" @click="submit()">Submit</button>
+      <button class="button is-gold is-pulled-right" v-if="isAdmin && isChangeable && isValid" @click="submit('WALKOVER')">Walkover</button>
       <button class="button is-warning is-pulled-right" v-if="isChangeable && isPlayed" @click="reject()">Reject</button>
     </footer>
   </div>
@@ -68,8 +69,8 @@ export default {
     isPlayed() { return this.match.status !== 'SCHEDULED'; },
   },
   methods: {
-    submit() {
-      this.$api(this.isPlayed ? 'PUT' : 'POST', `games/${this.match.gid.id}/schedule/${this.match.id}`, { result: this.score, status: 'PLAYED' })
+    submit(status = 'PLAYED') {
+      this.$api(this.isPlayed ? 'PUT' : 'POST', `games/${this.match.gid.id}/schedule/${this.match.id}`, { result: this.score, status })
         .then((game) => {
           this.$toast.open({ type: 'is-success', message: `Successfuly submited to ${game.name}` });
           this.$emit('apply', game);

@@ -52,22 +52,22 @@ export default {
   },
   computed: {
     ...mapGetters(['id', 'isAdmin', 'isMobile']),
-    isOpen(){
+    isOpen() {
       return this.game.status === 'OPEN';
-    }
+    },
   },
   methods: {
-    modifable(user){
-      return this.isOpen && (this.isAdmin || user.id === this.id)
+    modifable(user) {
+      return this.isOpen && (this.isAdmin || user.id === this.id);
     },
     change({ club, user }) {
       this.uid = user.id;
       this.club = club;
       this.toChange = true;
     },
-    changed(game){
+    changed(game) {
       this.$emit('updated', game);
-      this.toChange=false;
+      this.toChange = false;
     },
     remove({ name, id }) {
       this.$api('DELETE', `/games/${this.game.id}/competitors`, { uid: id })
