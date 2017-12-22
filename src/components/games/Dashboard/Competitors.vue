@@ -14,11 +14,11 @@
               <b-icon icon="dashboard"></b-icon>
               <span>Dashboard</span>
             </a>
-            <a class="button is-danger is-small" @click="remove(user)">
+            <a class="button is-danger is-small" v-if="modifable(user)" @click="remove(user)">
               <b-icon icon="remove"></b-icon>
               <span>Remove</span>
             </a>
-            <a class="button is-warning is-small" v-if="game.status === 'OPEN' && (isAdmin || user.id === id)" @click="change({user,club})">
+            <a class="button is-warning is-small" v-if="modifable(user)" @click="change({user,club})">
               <b-icon icon="refresh"></b-icon>
               <span>Change</span>
             </a>
@@ -52,8 +52,14 @@ export default {
   },
   computed: {
     ...mapGetters(['id', 'isAdmin', 'isMobile']),
+    isOpen(){
+      return this.game.status === 'OPEN';
+    }
   },
   methods: {
+    modifable(user){
+      return this.isOpen && (this.isAdmin || user.id === this.id)
+    },
     change({ club, user }) {
       this.uid = user.id;
       this.club = club;
