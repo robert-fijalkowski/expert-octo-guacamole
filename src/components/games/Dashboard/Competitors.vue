@@ -18,7 +18,7 @@
               <b-icon icon="remove"></b-icon>
               <span>Remove</span>
             </a>
-            <a class="button is-warning is-small" v-if="isAdmin || user.id === id" @click="change({user,club})">
+            <a class="button is-warning is-small" v-if="game.status === 'OPEN' && (isAdmin || user.id === id)" @click="change({user,club})">
               <b-icon icon="refresh"></b-icon>
               <span>Change</span>
             </a>
