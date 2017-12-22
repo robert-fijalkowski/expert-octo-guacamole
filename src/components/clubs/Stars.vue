@@ -1,7 +1,7 @@
 <template>
   <div>
     <span class="title stars">
-      <b-icon :icon="iconFor(n)" v-for="n in 5" :key="n" type="is-gold" />
+      <b-icon :class="size" :icon="iconFor(n)" v-for="n in 5" :key="n" type="is-gold" />
     </span>
   </div>
 </template>
@@ -9,6 +9,12 @@
 export default {
   props: {
     stars: Number,
+    small: Boolean,
+  },
+  computed: {
+    size() {
+      return this.small ? 'is-small is-size-6' : '';
+    },
   },
   methods: {
     iconFor(n) {

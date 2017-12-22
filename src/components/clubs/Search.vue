@@ -7,7 +7,7 @@
         Deep search
       </b-switch>
     </b-field>
-    <div v-if="phrase && data.length !== 0">
+    <div v-if="done && data.length !== 0">
       <p class="columns is-multiline" v-if="simple">
         <Simple :select="select" :selected.sync="selectedGame" class="column is-12" :club="club" v-for="club in data" :key="club.id" />
       </p>
@@ -36,16 +36,17 @@ export default {
   props: {
     'has-deep-search': { type: Boolean, default: true },
     simple: { type: Boolean, default: false },
-    selected: { type: Function, default: () => {} },
     limit: { type: Number, default: 21 },
+    preselect: { type: String, default: null },
+    predata: { type: Array, default: () => [] },
   },
   data() {
     return {
       phrase: '',
-      data: [],
+      data: this.predata || [],
       deep: false,
       done: true,
-      selectedGame: null,
+      selectedGame: this.preselect || null,
     };
   },
   components: { Simple, Complex },
@@ -53,10 +54,10 @@ export default {
     select(game) {
       if (this.selectedGame === game.id) {
         this.selectedGame = null;
-        this.selected(null);
+        this.$emit('selected', null);
       } else {
         this.selectedGame = game.id;
-        this.selected(game);
+        this.$emit('selected', game);
       }
     },
     search: debounce(function debouncedSearch() {
