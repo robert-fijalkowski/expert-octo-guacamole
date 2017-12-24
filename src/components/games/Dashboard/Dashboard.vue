@@ -1,6 +1,13 @@
 <template>
   <div class="root" v-if="game">
     <Navigation :game="game" @action="handle" :from="from" />
+    <div v-if="game.continueIn" class="notification">
+      <p>This games has been completed! Following games has been created as continuation of this one:</p>
+      <div v-for="following in game.continueIn" :key="following.id">
+        {{following.name}}
+      </div>
+
+    </div>
     <Tabs :game="game" @action="handle" @updated="(d) => handle('updated',d)" />
     <b-modal :active.sync="modal" has-modal-card :canCancel="true">
       <Join v-if="modalType==='join'" :fullGame="game" @joined="(d) => handle('joined', d)" :id="id" />
@@ -51,9 +58,8 @@ export default {
           this.modalType = action;
           return true;
         case 'joined':
-          this.modal = false;
-          return true;
         case 'updated':
+        case 'completed':
           this.modal = false;
           return true;
         default:

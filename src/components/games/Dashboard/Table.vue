@@ -8,7 +8,13 @@
           </span>
         </b-table-column>
         <b-table-column label="Player">
-          <router-link :to="`/users/${props.row.id}`"> {{user(props.row.id).name}}</router-link>
+          <div class="is-flex">
+            <router-link :to="`/users/${props.row.id}`"> {{user(props.row.id).name}}</router-link>
+            <b-taglist attached class="promoted" v-for="promo in promoted(props.row.id)" :key="promo.id">
+              <b-tag type="is-dark">promoted</b-tag>
+              <b-tag type="is-info">{{promo.name}}</b-tag>
+            </b-taglist>
+          </div>
         </b-table-column>
         <b-table-column label="PL" width=1 centered> {{props.row.played}}</b-table-column>
         <b-table-column label="W" class="is-hidden-mobile" width=1 centered numeric>{{props.row.wins}}</b-table-column>
@@ -41,6 +47,9 @@ export default {
         [R.T, R.always('odd')],
       ])({ row, parity: index % 2 });
     },
+    promoted(uid) {
+      return R.filter(R.pipe(R.prop('promoted'), R.contains(uid)), this.game.continueIn || []);
+    },
     club(uid) {
       return this.game.competitors[uid].club;
     },
@@ -62,5 +71,8 @@ export default {
 }
 .me {
   background-color: $primary-2 !important;
+}
+.promoted {
+  margin-left: 1rem;
 }
 </style>

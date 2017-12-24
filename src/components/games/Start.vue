@@ -25,9 +25,6 @@
 export default {
   name: 'modal-start',
   props: ['game'],
-  data() {
-    return { game: {} };
-  },
   methods: {
     start() {
       this.$api('POST', `games/${this.game.id}/schedule`)

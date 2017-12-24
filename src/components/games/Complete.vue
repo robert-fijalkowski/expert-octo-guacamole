@@ -6,51 +6,45 @@
     </header>
     <section class="modal-card-body  is-primary">
       <article>
-        Completing a game is
-        <span class="has-text-weight-bold">irrevertable</span> operataion!
+        <p>Completing a game is
+          <span class="has-text-weight-bold">irrevertable</span> operation! Create as many games as you want. </p>
+        <p>In each games may appears the players from previous</p>
       </article>
-      <div class="columns is-multiline">
-        <div class="column is-3">
-          <b-field horizontal>
-            <b-select placeholder="From">
-              <option :value="a" v-for="a in game.competitorsSize" :key="a">{{a}}</option>
-            </b-select>
-          </b-field>
-        </div>
-        <div class=" column is-3 ">
-          <b-field horizontal>
-            <b-select placeholder="To">
-              <option :value="a" v-for="a in game.competitorsSize" :key="a">{{a}}</option>
-            </b-select>
-          </b-field>
-        </div>
-        <div class="column is-6 ">Name</div>
-        <div class="column is-3 "><input/></div>
-        <div class="column is-3 ">To</div>
-        <div class="column is-6 ">Name</div>
+      <p>&nbsp;</p>
+      <div>
+        <CompleteRow :game="game" @data="d=>handle(index,d)" :isFirst="index===0" :isLast="index===newGames.length-1" :data=data v-for="(data, index) in newGames" :key="index" @remove="remove(index)" @add="add" />
       </div>
     </section>
-    <footer class="modal-card-foot ">
-      <button class="button is-danger " type="button " @click="$parent.close(false) ">Abandon</button>
-      <button class="button is-success is-pulled-right " @click="start ">Proceed starting
-      </button>
+    <footer class="modal-card-foot">
+      <button class="button is-danger" type="button" @click="$parent.close(false)">Abandon</button>
+      <button class="button is-success is-pulled-right " @click="start ">Proceed complete</button>
     </footer>
   </div>
 </template> 
 
 <script>
+import CompleteRow from './CompleteRow';
+
 export default {
+  components: { CompleteRow },
   name: 'modal-complete',
   props: ['game'],
   data() {
-    return { game: {} };
+    return {
+      newGames: [
+        { from: 1, to: this.game.competitorsSize, name: this.game.name },
+      ],
+    };
   },
   methods: {
     start() {
-      this.$api('POST', `games/${this.game.id}/complete`)
+      this.$api('POST', `games/${this.game.id}/complete`,{
+        split: 'position',
+        continueIn: this.newGames
+      })
         .then((game) => {
-          this.$toast.open({ type: 'is-success', message: `Successfuly started a game ${game.name}` });
-          this.$emit('started', game);
+          this.$toast.open({ type: 'is-success', message: `Successfuly completed a game ${game.name}` });
+          this.$emit('updated', game);
         })
         .catch((err) => {
           this.$toast.open({ type: 'is-danger', message: err.response.text });
@@ -58,6 +52,15 @@ export default {
     },
     selected(club) {
       this.club = club;
+    },
+    handle(index, data){
+      this.newGames[index] = data;
+    },
+    remove() {
+      this.newGames = this.newGames.slice(0, this.newGames.length - 1);
+    },
+    add() {
+      this.newGames.push({ from: 1, to: this.game.competitorsSize, name: this.game.name });
     },
   },
 };
