@@ -10,10 +10,6 @@
         <b-table-column label="Player">
           <div class="is-flex">
             <router-link :to="`/users/${props.row.id}`"> {{user(props.row.id).name}}</router-link>
-            <b-taglist attached class="promoted" v-for="promo in promoted(props.row.id)" :key="promo.id">
-              <b-tag type="is-dark">promoted</b-tag>
-              <b-tag type="is-info">{{promo.name}}</b-tag>
-            </b-taglist>
           </div>
         </b-table-column>
         <b-table-column label="PL" width=1 centered> {{props.row.played}}</b-table-column>

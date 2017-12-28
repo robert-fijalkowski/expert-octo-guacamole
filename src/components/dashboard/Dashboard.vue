@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="tile is-ancestor">
-      <div class="tile is-parent" :class="focusedGame ? 'is-6' : 'is-12'">
+      <div class="tile is-parent" :class="focusedGame.length > 0 ? 'is-6' : 'is-12'">
         <div class="tile is-child box notification is-primary">
           <Stats :games="profile.games" :userId="id" />
         </div>

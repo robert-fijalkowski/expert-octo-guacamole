@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="columns is-multiline">
-      <div class="column is-4" v-for="{club, user} in game.competitors" :key="user.id">
-        <div class="notification is-primary is-flex">
+      <div class=" column is-4" v-for="{club, user} in game.competitors" :key="user.id">
+        <div class="notification is-primary is-flex" :class="promotion[user.id].length > 0 ? 'player-has-promotion' : ''">
           <ClubEmblem :club="club.id" :size="isMobile ? 75 : 100" />
           <div class="is-expanded">
             <div class="title is-size-6">{{user.name}}</div>
@@ -22,6 +22,13 @@
               <b-icon icon="refresh"></b-icon>
               <span>Change</span>
             </a>
+          </div>
+          <div class="promoted">
+            <b-taglist attached v-for="promo in promotion[user.id]" :key="promo.id">
+              <b-tag type="is-dark">
+                <b-icon icon="star" />&nbsp;{{promo.name}}
+              </b-tag>
+            </b-taglist>
           </div>
         </div>
       </div>
@@ -55,6 +62,9 @@ export default {
     isOpen() {
       return this.game.status === 'OPEN';
     },
+    promotion() {
+      return R.mapObjIndexed(R.pipe((v, k) => this.promoted(k), R.values), this.game.competitors);
+    },
   },
   methods: {
     modifable(user) {
@@ -64,6 +74,9 @@ export default {
       this.uid = user.id;
       this.club = club;
       this.toChange = true;
+    },
+    promoted(uid) {
+      return (R.filter(R.pipe(R.prop('promoted'), R.contains(uid)), this.game.continueIn || []));
     },
     changed(game) {
       this.$emit('updated', game);
@@ -89,5 +102,15 @@ export default {
 }
 .is-expanded {
   flex-grow: 1;
+}
+.player-has-promotion {
+  position: relative;
+  padding-bottom: 2.25rem;
+  .promoted {
+    position: absolute;
+    left: 0.25rem;
+    bottom: 0.25rem;
+    margin: 0;
+  }
 }
 </style>
