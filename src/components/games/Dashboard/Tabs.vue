@@ -1,7 +1,7 @@
 <template>
   <div class="notification">
     <b-tabs>
-      <b-tab-item label="Table" v-if="game.table.length > 0" icon="list-ol">
+      <b-tab-item label="Table" v-if="game.table && game.table.length > 0" icon="list-ol">
         <GameTable :game="game" v-if="!isMobile" />
         <FocusedTable :game="game" v-else :count="game.table.length" :focus="id" />
       </b-tab-item>
