@@ -1,41 +1,13 @@
 <template>
   <div class="notification is-primary">
-    <p class="title">Create game</p>
-    <section style="width: 80%">
-      <b-field horizontal label="Name">
-        <b-input v-model="newGame.name" expanded minlength="10"></b-input>
-      </b-field>
-
-      <b-field horizontal label="Location">
-        <b-select v-model="newGame.location" placeholder="Select a location">
-          <option value="Gdańsk" selected="true">Gdańsk</option>
-          <option value="Kraków">Kraków</option>
-          <option value="Stockholm">Stockholm</option>
-        </b-select>
-      </b-field>
-
-      <b-field horizontal label="Description">
-        <b-input v-model="newGame.description" type="textarea"></b-input>
-      </b-field>
-
-      <b-field horizontal label="">
-        <b-checkbox v-model="newGame.ranked" type="textarea">
-          <span>Ranked game</span>
-        </b-checkbox>
-      </b-field>
-      <b-field horizontal>
-        <p class="control">
-          <button @click="create" class="button is-primary-2">
-            Create
-          </button>
-        </p>
-      </b-field>
-      <p>&nbsp;</p>
-    </section>
+    <Properties @submit="create" />
   </div>
 </template>
 <script>
+import Properties from './Properties';
+
 export default {
+  components: { Properties },
   name: 'create-game',
   data() {
     return {
@@ -49,8 +21,8 @@ export default {
     };
   },
   methods: {
-    create() {
-      this.$api('POST', '/games', this.newGame)
+    create(newGame) {
+      this.$api('POST', '/games', newGame)
         .then((game) => {
           this.$toast.open({ type: 'is-success', message: `created game with id ${game.id}` });
           this.$router.push(`/games/${game.id}`);

@@ -1,7 +1,7 @@
 <template>
   <div class="notification">
     <b-tabs>
-      <b-tab-item label="Table" v-if="game.table" icon="list-ol">
+      <b-tab-item label="Table" v-if="game.table.length > 0" icon="list-ol">
         <GameTable :game="game" v-if="!isMobile" />
         <FocusedTable :game="game" v-else :count="game.table.length" :focus="id" />
       </b-tab-item>
@@ -12,7 +12,7 @@
         <Schedule :game="game" @updated="(game) => $emit('updated',game)" />
       </b-tab-item>
       <b-tab-item label="Settings" v-if="isAdmin" icon="cog">
-        Technical Endpoint for future
+        <Settings :game="game" @updated="(game) => $emit('updated',game)" />
       </b-tab-item>
     </b-tabs>
   </div>
@@ -24,10 +24,11 @@ import Schedule from './Schedule';
 import GameTable from './Table';
 import Competitors from './Competitors';
 import FocusedTable from '../FocusedTable';
+import Settings from './Settings';
 
 export default {
   components: {
-    Schedule, GameTable, FocusedTable, Competitors,
+    Schedule, GameTable, FocusedTable, Competitors, Settings,
   },
   props: ['game', 'index'],
   name: 'game-tabs',

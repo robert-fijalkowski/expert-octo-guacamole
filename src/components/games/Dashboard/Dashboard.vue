@@ -6,10 +6,9 @@
       <div v-for="following in game.continueIn" :key="following.id">
         {{following.name}}
       </div>
-
     </div>
     <Tabs :game="game" @action="handle" @updated="(d) => handle('updated',d)" />
-    <b-modal :active.sync="modal" has-modal-card :canCancel="true">
+    <b-modal :active.sync="modal" has-modal-card :canCancel="true" @close="$router.push(`/games/${game.id}`)">
       <Join v-if="modalType==='join'" :fullGame="game" @joined="(d) => handle('joined', d)" :id="id" />
       <Start v-else-if="modalType==='start'" :game="game" @started="(d) => handle('started', d)" />
       <Complete v-else-if="modalType==='complete'" :game="game" @completed="(d) => handle('completed', d)" />
@@ -52,7 +51,8 @@ export default {
           return this.$api('DELETE', `/games/${this.game.id}/competitors`, { uid: this.id })
             .then((game) => { this.game = game; });
         case 'join':
-        case 'start':
+          this.$router.push(`/games/${this.game.id}?join`);
+        case 'start': // eslint-disable-line
         case 'complete':
           this.modal = true;
           this.modalType = action;

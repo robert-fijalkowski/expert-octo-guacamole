@@ -12,13 +12,14 @@
           <div class="floating-tag">
             <b-tag type="is-primary">{{game.status}}</b-tag>
             <span @click.stop="$router.push(`/games/join?game=${game.id}`)" class="is-clickable" v-if="game.status === 'OPEN' && !isMember(game)">
-              <b-tag type="is-warning">JOIN</b-tag>
+              <b-tag type="is-warning">Able to JOIN</b-tag>
             </span>
             <span @click.stop="leave(game)" class="is-clickable" v-if="isMember(game)">
               <b-tag type="is-danger">Member of</b-tag>
             </span>
             <b-tag type="is-info">{{game.players.length}} players</b-tag>
-            <b-tag type="is-gold" v-if="game.ranked">RANKED</b-tag>
+            <b-tag type="is-gold" v-if="game.ranked">ranked</b-tag>
+            <b-tag type="is-gray" v-if="isAdmin && game.archived">archived</b-tag>
           </div>
         </div>
       </div>
@@ -46,7 +47,7 @@ export default {
   },
   components: { FocusedTable, Join },
   computed: {
-    ...mapGetters(['id']),
+    ...mapGetters(['id', 'isAdmin']),
     gameId() {
       return this.$route.query.game;
     },
@@ -76,7 +77,9 @@ export default {
       this.$router.push('/games');
     },
     load() {
-      this.$api('GET', '/games').then((games) => { this.games = games; });
+      this.$api('GET', '/games')
+        .then(R.filter(g => this.isAdmin || !g.archived))
+        .then((games) => { this.games = games; });
     },
   },
   created() {

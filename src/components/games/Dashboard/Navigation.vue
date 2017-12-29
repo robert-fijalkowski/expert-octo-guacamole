@@ -2,6 +2,8 @@
   <div v-if="game" class="notification">
     <p class="title">{{game.name}}</p>
     <p class="subtitle has-text-centered is-size-6">{{game.location}}</p>
+    <p>{{game.description}}</p>
+    <p>&nbsp;</p>
     <div class="level">
       <div class="level-item">
         <a class="button is-dark" @click="$router.push('/games')">

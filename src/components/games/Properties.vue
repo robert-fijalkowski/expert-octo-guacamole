@@ -1,0 +1,81 @@
+<template>
+  <div>
+    <p class="title" v-if="title">{{title}}</p>
+    <section style="width: 80%">
+      <b-field label="Name" :type="result ? 'is-danger' : ''" :message="result">
+        <b-input v-model="properties.name" expanded minlength="10"></b-input>
+      </b-field>
+
+      <b-field label="Location">
+        <b-select v-model="properties.location" placeholder="Select a location">
+          <option value="Gdańsk" selected="true">Gdańsk</option>
+          <option value="Kraków">Kraków</option>
+          <option value="Stockholm">Stockholm</option>
+        </b-select>
+      </b-field>
+
+      <b-field label="Description">
+        <b-input v-model="properties.description" type="textarea"></b-input>
+      </b-field>
+      <b-field label="">
+        <b-checkbox v-model="properties.ranked" type="textarea">
+          <span>Ranked game</span>
+        </b-checkbox>
+      </b-field>
+      <b-field label="">
+        <b-checkbox v-model="properties.archived" type="textarea">
+          <span>Archived</span>
+        </b-checkbox>
+      </b-field>
+      <b-field>
+        <p class="control">
+          <button @click="validate" class="button is-primary-2">
+            {{actionName}}
+          </button>
+        </p>
+      </b-field>
+    </section>
+  </div>
+</template>
+<script>
+import * as R from 'ramda';
+
+export default {
+  name: 'game-properties-form',
+  props: {
+    game: { type: Object, default: () => ({}) },
+    actionName: { type: String, default: 'Create' },
+    title: { type: String, default: 'Create game' },
+  },
+  data() {
+    return {
+      properties: {
+        name: '',
+        location: 'Gdańsk',
+        ranked: false,
+        archived: false,
+        description: '',
+        ...R.pick(['name', 'location', 'ranked', 'description', 'archived'], this.game),
+      },
+      result: '',
+    };
+  },
+  methods: {
+    validate() {
+      if (this.properties.name) {
+        this.$emit('submit', this.properties);
+        this.result = '';
+      } else {
+        this.result = 'Invalid name';
+      }
+    },
+  },
+};
+</script>
+<style lang="scss">
+@import "../../style/vars.scss";
+.label {
+  color: $primary-invert;
+}
+</style>
+
