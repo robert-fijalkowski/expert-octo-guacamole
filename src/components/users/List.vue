@@ -58,7 +58,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isAdmin', 'id']),
+    ...mapGetters(['isAdmin', 'id', 'event']),
     myId() { return this.id; },
   },
   methods: {
@@ -101,6 +101,13 @@ export default {
   },
   mounted() {
     this.refreshUsers();
+  },
+  watch: {
+    event({ type }) {
+      if (type === 'users') {
+        this.refreshUsers();
+      }
+    },
   },
 };
 </script>

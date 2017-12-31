@@ -10,3 +10,4 @@ export const NOT_LOGGED_CAUSE = 'NOT_LOGGED_CAUSE';
 export const IS_LOADING = 'IS_LOADING';
 export const LOADED = 'LOADED';
 export const IS_MOBILE = 'IS_MOBILE';
+export const NEW_EVENT = 'NEW_EVENT';

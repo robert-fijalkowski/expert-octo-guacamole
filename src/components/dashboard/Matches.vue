@@ -40,7 +40,7 @@
           </div>
         </div>
       </div>
-      <b-modal :active.sync="isSubmitActive" has-modal-card :canCancel="true">
+      <b-modal :active.sync="isSubmitActive" has-modal-card :canCancel="true" @close="handle('close')">
         <ModalScore :match="selectedMatch" @apply="game => handle('apply', game)" />
       </b-modal>
     </div>
@@ -75,6 +75,9 @@ export default {
     noFilter: { type: Boolean, default: false },
     searchable: { type: Boolean, default: false },
     size: { type: Number, default: 5 },
+  },
+  created() {
+    this.checkFocus();
   },
   computed: {
     ...mapGetters(['isMobile']),
@@ -118,9 +121,11 @@ export default {
   methods: {
     modalScore(data) {
       this.selectedMatch = { ...data };
+      this.$router.replace(`${this.$route.path}?contest=${data.id}`);
       this.isSubmitActive = true;
     },
     handle(action, data) {
+      this.$router.replace(`${this.$route.path}`);
       switch (action) {
         case 'apply':
           this.isSubmitActive = false;
@@ -130,6 +135,23 @@ export default {
         default:
           return true;
       }
+    },
+    checkFocus() {
+      const { contest } = (this.$route.query);
+      if (contest) {
+        const found = (R.find(R.propEq('id', contest), this.relatedMatches));
+        if (found) {
+          this.modalScore(found);
+          this.$emit('needFocus');
+        } else {
+          console.log('focused but not found');
+        }
+      }
+    },
+  },
+  watch: {
+    contests() {
+      this.checkFocus();
     },
   },
 };

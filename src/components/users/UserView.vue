@@ -19,7 +19,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isAdmin']),
+    ...mapGetters(['isAdmin', 'event']),
   },
   methods: {
     load() {
@@ -28,6 +28,14 @@ export default {
   },
   mounted() {
     this.load();
+  },
+
+  watch: {
+    event({ type, relate }) {
+      if (type === 'users' && relate === this.id) {
+        this.load();
+      }
+    },
   },
 };
 </script>

@@ -47,7 +47,7 @@ export default {
   },
   components: { FocusedTable, Join },
   computed: {
-    ...mapGetters(['id', 'isAdmin']),
+    ...mapGetters(['id', 'isAdmin', 'event']),
     gameId() {
       return this.$route.query.game;
     },
@@ -84,6 +84,13 @@ export default {
   },
   created() {
     this.load();
+  },
+  watch: {
+    event({ type }) {
+      if (type === 'games') {
+        this.load();
+      }
+    },
   },
   beforeRouteEnter(to, from, next) {
     const callback = R.cond([

@@ -20,8 +20,21 @@ import UserBar from '@/components/UserBar';
 export default {
   name: 'app',
   components: { Navigation, Styled, UserBar },
-  methods: { ...mapActions(['hideMenu']) },
-  computed: { ...mapGetters(['busy']) },
+  methods: { ...mapActions(['hideMenu', 'refreshProfile', 'exchangeToken']) },
+  computed: { ...mapGetters(['busy', 'token', 'event', 'id']) },
+  created() {
+  },
+  watch: {
+    token() {
+      this.$ws(this);
+    },
+    event({ type, relate }) {
+      if (type === 'users' && relate === this.id) {
+        this.refreshProfile();
+        this.exchangeToken();
+      }
+    },
+  },
 };
 </script>
  

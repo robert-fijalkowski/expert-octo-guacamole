@@ -39,7 +39,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['id', 'isAdmin']),
+    ...mapGetters(['id', 'isAdmin', 'event']),
   },
   methods: {
     handle(action, data) {
@@ -58,7 +58,8 @@ export default {
           this.modalType = action;
           return true;
         case 'joined':
-        case 'updated':
+          this.$router.push(`/games/${this.game.id}`);
+        case 'updated':  // eslint-disable-line
         case 'completed':
           this.modal = false;
           return true;
@@ -74,9 +75,18 @@ export default {
   mounted() {
     this.load();
   },
+  watch: {
+    event({ type, relate }) {
+      if (type === 'games' && relate === this.game.id) {
+        this.load();
+      }
+    },
+  },
   beforeRouteUpdate(to, from, next) {
-    Object.assign(this.$data, this.$options.data());
-    this.load(to.params.gameId);
+    if (!R.pathEq(['game', 'id'], to.params.gameId, this)) {
+      Object.assign(this.$data, this.$options.data());
+      this.load(to.params.gameId);
+    }
     next();
   },
   beforeRouteEnter(to, from, next) {

@@ -1,15 +1,15 @@
 <template>
   <div class="notification">
-    <b-tabs>
+    <b-tabs v-model="tab">
       <b-tab-item label="Table" v-if="game.table && game.table.length > 0" icon="list-ol">
         <GameTable :game="game" v-if="!isMobile" />
         <FocusedTable :game="game" v-else :count="game.table.length" :focus="id" />
       </b-tab-item>
+      <b-tab-item label="Schedule" v-if="game.status !== 'OPEN'" icon="calendar">
+        <Schedule :game="game" @updated="(game) => $emit('updated',game)" @needFocus="focus(1)" />
+      </b-tab-item>
       <b-tab-item label="Competitors" icon="users">
         <Competitors :game="game" @updated="(game) => $emit('updated',game)" />
-      </b-tab-item>
-      <b-tab-item label="Schedule" v-if="game.status !== 'OPEN'" icon="calendar">
-        <Schedule :game="game" @updated="(game) => $emit('updated',game)" />
       </b-tab-item>
       <b-tab-item label="Settings" v-if="isAdmin" icon="cog">
         <Settings :game="game" @updated="(game) => $emit('updated',game)" />
@@ -31,9 +31,17 @@ export default {
     Schedule, GameTable, FocusedTable, Competitors, Settings,
   },
   props: ['game', 'index'],
+  data() {
+    return { tab: 0 };
+  },
   name: 'game-tabs',
   computed: {
     ...mapGetters(['id', 'isAdmin', 'isMobile']),
+  },
+  methods: {
+    focus(tab) {
+      this.tab = tab;
+    },
   },
 };
 </script>

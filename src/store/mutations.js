@@ -44,4 +44,7 @@ export default {
   [types.IS_MOBILE](state, is) {
     state.mobileView = is;
   },
+  [types.NEW_EVENT](state, event) {
+    state.lastEvent = event;
+  },
 };

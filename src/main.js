@@ -6,6 +6,7 @@ import App from './App';
 import store from './store/index';
 import router from './router';
 import Api from './plugins/api';
+import Ws from './plugins/ws';
 
 /* Initialize the plugin */
 Vue.use(Buefy, {
@@ -14,6 +15,7 @@ Vue.use(Buefy, {
 Vue.config.productionTip = false;
 
 Vue.use(Api);
+Vue.use(Ws);
 
 /* eslint-disable no-new */
 new Vue({

@@ -7,7 +7,13 @@ const refreshProfile = ({ commit, state }) => {
   api(state)('GET', '/users/myprofile').then(profile => commit(types.SET_MY_PROFILE, profile));
 };
 
-const decodeToken = (token, { commit, state }) => {
+const exchangeToken = ({ commit, state, dispatch }) => {
+  api(state)('PUT', '/jwt/exchange').then(({ token }) => {
+    dispatch('login', token);
+  });
+};
+
+const decodeToken = ({ commit, state }, token) => {
   const [, payload] = token.split('.');
   const {
     access, meta, id, exp,
@@ -27,9 +33,14 @@ const decodeToken = (token, { commit, state }) => {
 
 export default {
   refreshProfile,
-  login({ commit, state }, token) {
+  exchangeToken,
+  decodeToken,
+  login({ dispatch }, token) {
     window.localStorage.setItem('TOKEN', token);
-    decodeToken(token, { commit, state });
+    dispatch('decodeToken', token);
+  },
+  handleEvent({ commit }, event) {
+    commit(types.NEW_EVENT, event);
   },
   hideMenu({ commit, state }) {
     if (state.menuVisible) { commit(types.HIDE_MENU); }
@@ -46,10 +57,11 @@ export default {
     }
     return commit(types.SHOW_MENU);
   },
-  loadLocalStorage({ commit, state }) {
+  loadLocalStorage({ dispatch }) {
     const token = window.localStorage.getItem('TOKEN');
     if (token) {
-      decodeToken(token, { commit, state });
+      dispatch('decodeToken', token);
+      dispatch('exchangeToken');
     }
   },
   logout({ commit }) {

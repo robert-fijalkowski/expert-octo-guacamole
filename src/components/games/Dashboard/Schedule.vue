@@ -22,7 +22,7 @@
         </b-checkbox>
       </div>
     </div>
-    <Matches noFilter :contests="filteredSchedule" searchable :size="filteredSchedule.length" @updateGame="(game) => $emit('updated', game)" />
+    <Matches noFilter :contests="filteredSchedule" searchable :size="filteredSchedule.length" @needFocus="$emit('needFocus')" @updateGame="(game) => $emit('updated', game)" />
   </div>
 </template>
 <script>
@@ -35,7 +35,7 @@ export default {
   components: { Matches },
   props: { game: { type: Object, required: true } },
   data() {
-    return { checkboxGroup: ['SCHEDULED'], onlyMy: false };
+    return { checkboxGroup: ['SCHEDULED', 'PLAYED'], onlyMy: false };
   },
   methods: {
     club(uid) {
@@ -54,6 +54,7 @@ export default {
       const isContainedInGroup = R.flip(R.contains)(this.checkboxGroup);
       const isMyMatch = ({ home, visitor }) => !this.onlyMy || R.contains(this.id, [home, visitor]);
       return R.pipe(
+
         R.filter(R.pipe(R.prop('status'), isContainedInGroup)),
         R.filter(isMyMatch),
         R.values,
