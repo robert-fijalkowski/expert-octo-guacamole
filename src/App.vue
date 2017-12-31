@@ -17,16 +17,23 @@ import Navigation from '@/components/navigation/Index';
 import Styled from '@/style/Styled';
 import UserBar from '@/components/UserBar';
 
+const idForToken = (token) => {
+  if (!token) {
+    return null;
+  }
+  const [, payload] = token.split('.');
+  const { id } = JSON.parse(atob(payload));
+  return id;
+};
+
 export default {
   name: 'app',
   components: { Navigation, Styled, UserBar },
   methods: { ...mapActions(['hideMenu', 'refreshProfile', 'exchangeToken']) },
   computed: { ...mapGetters(['busy', 'token', 'event', 'id']) },
-  created() {
-  },
   watch: {
-    token() {
-      this.$ws(this);
+    token(token, oldToken) {
+      if (idForToken(token) !== idForToken(oldToken)) { this.$ws(this); }
     },
     event({ type, relate }) {
       if (type === 'users' && relate === this.id) {

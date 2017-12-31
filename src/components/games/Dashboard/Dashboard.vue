@@ -36,6 +36,7 @@ export default {
       from: null,
       modal: false,
       modalType: false,
+      autoUpdated: 0,
     };
   },
   computed: {
@@ -45,6 +46,7 @@ export default {
     handle(action, data) {
       if (data) {
         this.game = data;
+        this.autoUpdated = Date.now();
       }
       switch (action) {
         case 'left':
@@ -77,7 +79,7 @@ export default {
   },
   watch: {
     event({ type, relate }) {
-      if (type === 'games' && relate === this.game.id) {
+      if (type === 'games' && relate === this.game.id && (Date.now() - this.autoUpdated) > 1000) {
         this.load();
       }
     },

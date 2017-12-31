@@ -1,13 +1,14 @@
+import debounce from 'lodash.debounce';
+
 import * as types from './mutation-types';
 import { api } from '../plugins/api';
 
-const isTokenValid = token => true;
+const refreshProfile = debounce(({ commit, state }) => {
+  api(state)('GET', '/users/myprofile')
+    .then(profile => commit(types.SET_MY_PROFILE, profile));
+}, 250);
 
-const refreshProfile = ({ commit, state }) => {
-  api(state)('GET', '/users/myprofile').then(profile => commit(types.SET_MY_PROFILE, profile));
-};
-
-const exchangeToken = ({ commit, state, dispatch }) => {
+const exchangeToken = ({ state, dispatch }) => {
   api(state)('PUT', '/jwt/exchange').then(({ token }) => {
     dispatch('login', token);
   });
