@@ -18,6 +18,7 @@
               <b-icon icon="github" />
             </button>
           </router-link>
+          <h3>Please note: in order to automatically login with your GitHub account you need to enable pop-ups in your browser.</h3>
         </div>
 
       </div>
