@@ -33,7 +33,6 @@
 </template> 
 
 <script>
-import moment from 'moment';
 import { mapGetters } from 'vuex';
 import * as R from 'ramda';
 
@@ -54,7 +53,6 @@ export default {
   },
   methods: {
     setModalVisible(visible) { this.isJoinActive = visible; },
-    humanTime: date => moment(date).fromNow(),
     isMember(game) {
       return R.findIndex(R.propEq('id', this.id), game.players) !== -1;
     },
