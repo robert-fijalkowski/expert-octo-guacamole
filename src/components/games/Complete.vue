@@ -38,13 +38,14 @@ export default {
   },
   methods: {
     start() {
-      this.$api('POST', `games/${this.game.id}/complete`,{
+      this.$api('POST', `games/${this.game.id}/complete`, {
         split: 'position',
-        continueIn: this.newGames
+        continueIn: this.newGames,
       })
         .then((game) => {
           this.$toast.open({ type: 'is-success', message: `Successfuly completed a game ${game.name}` });
           this.$emit('updated', game);
+          this.$emit('completed', game);
         })
         .catch((err) => {
           this.$toast.open({ type: 'is-danger', message: err.response.text });
@@ -53,7 +54,7 @@ export default {
     selected(club) {
       this.club = club;
     },
-    handle(index, data){
+    handle(index, data) {
       this.newGames[index] = data;
     },
     remove() {

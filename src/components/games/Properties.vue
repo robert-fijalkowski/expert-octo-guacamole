@@ -17,6 +17,12 @@
       <b-field label="Description">
         <b-input v-model="properties.description" type="textarea"></b-input>
       </b-field>
+      <b-field label="Rules (markdown)">
+        <b-input v-if="!preview" v-model="properties.rules" type="textarea"></b-input>
+      </b-field>
+      <div class="content" v-if="preview" v-html="compiledRules"></div>
+      <a class="is-block subtitle" @click="preview = !preview">preview</a>
+
       <b-field label="">
         <b-checkbox v-model="properties.ranked" type="textarea">
           <span>Ranked game</span>
@@ -39,6 +45,7 @@
 </template>
 <script>
 import * as R from 'ramda';
+import * as marked from 'marked';
 
 export default {
   name: 'game-properties-form',
@@ -55,10 +62,17 @@ export default {
         ranked: false,
         archived: false,
         description: '',
-        ...R.pick(['name', 'location', 'ranked', 'description', 'archived'], this.game),
+        rules: '',
+        ...R.pick(['name', 'location', 'ranked', 'description', 'archived', 'rules'], this.game),
       },
       result: '',
+      preview: false,
     };
+  },
+  computed: {
+    compiledRules() {
+      return marked(this.properties.rules);
+    },
   },
   methods: {
     validate() {

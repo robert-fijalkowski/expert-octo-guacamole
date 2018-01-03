@@ -11,6 +11,9 @@
       <b-tab-item label="Competitors" icon="users">
         <Competitors :game="game" @updated="(game) => $emit('updated',game)" />
       </b-tab-item>
+      <b-tab-item label="Rules" v-if="(game.rules || '').length" icon="list-ul">
+        <Rules :game="game" />
+      </b-tab-item>
       <b-tab-item label="Settings" v-if="isAdmin" icon="cog">
         <Settings :game="game" @updated="(game) => $emit('updated',game)" />
       </b-tab-item>
@@ -18,30 +21,22 @@
   </div>
 </template>
 <script>
-import * as R from 'ramda';
 import { mapGetters } from 'vuex';
 import Schedule from './Schedule';
 import GameTable from './Table';
 import Competitors from './Competitors';
 import FocusedTable from '../FocusedTable';
 import Settings from './Settings';
+import Rules from './Rules';
 
 export default {
   components: {
-    Schedule, GameTable, FocusedTable, Competitors, Settings,
+    Schedule, GameTable, FocusedTable, Competitors, Settings, Rules,
   },
   props: ['game', 'index'],
-  data() {
-    return { tab: 0 };
-  },
+  data() { return { tab: 0 }; },
   name: 'game-tabs',
-  computed: {
-    ...mapGetters(['id', 'isAdmin', 'isMobile']),
-  },
-  methods: {
-    focus(tab) {
-      this.tab = tab;
-    },
-  },
+  computed: { ...mapGetters(['id', 'isAdmin', 'isMobile']) },
+  methods: { focus(tab) { this.tab = tab; } },
 };
 </script>

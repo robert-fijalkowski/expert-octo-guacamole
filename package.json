@@ -13,6 +13,7 @@
   "dependencies": {
     "buefy": "^0.6.2",
     "lodash.debounce": "^4.0.8",
+    "marked": "^0.3.9",
     "moment": "^2.20.1",
     "ramda": "^0.25.0",
     "superagent": "^3.8.2",
