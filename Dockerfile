@@ -6,7 +6,7 @@ COPY . /build
 RUN npm run build
 
 FROM nginx:latest
-ENV LETSENCRYPT_HOST v2.premiersted.schibsted.ga
-ENV VIRTUAL_HOST v2.premiersted.schibsted.ga
+ENV LETSENCRYPT_HOST premiersted.schibsted.ga
+ENV VIRTUAL_HOST premiersted.schibsted.ga
 ENV LETSENCRYPT_EMAIL mateusz@odel.ga
 COPY --from=builder /build/dist/ /usr/share/nginx/html 

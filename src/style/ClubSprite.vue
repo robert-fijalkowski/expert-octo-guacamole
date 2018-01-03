@@ -11,12 +11,12 @@ export default {
   display: flex;
   justify-content: center;
 }
-@mixin club($s) {
+@mixin club($s, $f: "../assets/club-sprite.png") {
   width: $s;
   height: $s;
   align-self: center;
   margin: auto auto;
-  background-image: url("../assets/club-sprite.png");
+  background-image: url($f);
 }
 .bg-club-001 {
   @include club(75px);
@@ -2493,6 +2493,82 @@ export default {
 .bg-club-021 {
   @include club(75px);
   background-position: -75px -0;
+}
+.bg-club-167 {
+  @include club(50px,"../assets/club-sprite-2.png");
+  background-position: -0px -0px;
+}
+.bg-club-170 {
+  @include club(50px,"../assets/club-sprite-2.png");
+  background-position: -50px -0px;
+}
+.bg-club-172 {
+  @include club(50px,"../assets/club-sprite-2.png");
+  background-position: -100px -0px;
+}
+.bg-club-174 {
+  @include club(50px,"../assets/club-sprite-2.png");
+  background-position: -150px -0px;
+}
+.bg-club-181 {
+  @include club(50px,"../assets/club-sprite-2.png");
+  background-position: -0px -50px;
+}
+.bg-club-185 {
+  @include club(50px,"../assets/club-sprite-2.png");
+  background-position: -50px -50px;
+}
+.bg-club-620 {
+  @include club(50px,"../assets/club-sprite-2.png");
+  background-position: -100px -50px;
+}
+.bg-club-621 {
+  @include club(50px,"../assets/club-sprite-2.png");
+  background-position: -150px -50px;
+}
+.bg-club-622 {
+  @include club(50px,"../assets/club-sprite-2.png");
+  background-position: -0px -100px;
+}
+.bg-club-623 {
+  @include club(50px,"../assets/club-sprite-2.png");
+  background-position: -50px -100px;
+}
+.bg-club-624 {
+  @include club(50px,"../assets/club-sprite-2.png");
+  background-position: -100px -100px;
+}
+.bg-club-625 {
+  @include club(50px,"../assets/club-sprite-2.png");
+  background-position: -150px -100px;
+}
+.bg-club-626 {
+  @include club(50px,"../assets/club-sprite-2.png");
+  background-position: -0px -150px;
+}
+.bg-club-627 {
+  @include club(50px,"../assets/club-sprite-2.png");
+  background-position: -50px -150px;
+}
+.bg-club-628 {
+  @include club(50px,"../assets/club-sprite-2.png");
+  background-position: -100px -150px;
+}
+.bg-club-629 {
+  @include club(50px,"../assets/club-sprite-2.png");
+  background-position: -150px -150px;
+}
+.bg-club-630 {
+  @include club(50px,"../assets/club-sprite-2.png");
+  background-position: -0px -200px;
+}
+.bg-club-631 {
+  @include club(50px,"../assets/club-sprite-2.png");
+  background-position: -50px -200px;
+}
+.bg-club-632 {
+  @include club(50px,"../assets/club-sprite-2.png");
+  background-position: -100px -200px;
 }
 </style>
 
